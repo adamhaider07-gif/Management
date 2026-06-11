@@ -19,6 +19,15 @@ window.COURSE = {
   week: 1,
   title: "Introduction to Management",
   blurb: "Who managers are, what they do, and why organizations need them.",
+  checklist: [
+    "Define **manager**, **organization**, and **management** word-for-word",
+    "Name the 3 characteristics of organizations and the 3 levels of managers",
+    "Contrast **efficiency (means)** vs. **effectiveness (ends)** — and what management strives for",
+    "Recite the 4 functions (planning, organizing, leading, controlling) with their exact definitions",
+    "Sort all 10 Mintzberg roles into interpersonal / informational / decisional",
+    "Match technical, interpersonal, and conceptual skills to managerial levels (Exhibit 1-8)",
+    "Explain why management is universally needed"
+  ],
   sections: [
     { h: "Managers and Organizations", blocks: [
       { t: "def", term: "Manager", d: "Someone who coordinates and oversees the work of other people so that organizational goals can be accomplished." },
@@ -46,7 +55,7 @@ window.COURSE = {
       { t: "def", term: "Efficiency", d: "Concerned with the MEANS of getting things done — resource usage and low waste (“doing things right” in terms of resources)." },
       { t: "def", term: "Effectiveness", d: "Concerned with the ENDS — attainment of organizational goals (high goal attainment)." },
       { t: "p", text: "Exhibit 1-4: management strives for low resource waste (high efficiency) AND high goal attainment (high effectiveness)." },
-      { t: "table", title: "The four management functions (Exhibit 1-5)", cols: ["Function", "Definition"], rows: [
+      { t: "table", cat: "theory", title: "The four management functions (Exhibit 1-5)", cols: ["Function", "Definition"], rows: [
         ["Planning", "Defining goals, establishing strategies to achieve goals, and developing plans to integrate and coordinate activities"],
         ["Organizing", "Arranging and structuring work to accomplish organizational goals"],
         ["Leading", "Working with and through people to accomplish goals"],
@@ -54,8 +63,8 @@ window.COURSE = {
       ]}
     ]},
     { h: "Mintzberg's Managerial Roles", blocks: [
-      { t: "def", term: "Roles", d: "Specific actions or behaviors expected of and exhibited by a manager. Mintzberg identified 10 roles grouped around interpersonal relationships, the transfer of information, and decision making (Exhibit 1-6)." },
-      { t: "table", title: "Mintzberg's 10 roles in 3 categories", cols: ["Category", "Roles"], rows: [
+      { t: "def", cat: "theory", term: "Roles", d: "Specific actions or behaviors expected of and exhibited by a manager. Mintzberg identified 10 roles grouped around interpersonal relationships, the transfer of information, and decision making (Exhibit 1-6)." },
+      { t: "table", cat: "theory", title: "Mintzberg's 10 roles in 3 categories", cols: ["Category", "Roles"], rows: [
         ["Interpersonal", "Figurehead, leader, liaison"],
         ["Informational", "Monitor, disseminator, spokesperson"],
         ["Decisional", "Entrepreneur, disturbance handler, resource allocator, negotiator"]
@@ -208,6 +217,19 @@ window.COURSE = {
   week: 2,
   title: "The Evolution of Management",
   blurb: "From the pyramids and Taylor's stopwatch to algorithmic management.",
+  checklist: [
+    "Adam Smith: define division of labor / job specialization",
+    "Recite Taylor's 4 principles and his Bethlehem Steel time-and-motion studies",
+    "Gilbreths: what are therbligs (17 hand motions)?",
+    "Know at least 6 of Fayol's 14 principles by name and meaning",
+    "List Weber's 6 bureaucracy characteristics",
+    "State the 4 Hawthorne conclusions — especially money vs. group standards",
+    "Contrast human relations belief (satisfied = productive) with behavioral science (objective research)",
+    "Define TQM and its 6 quality-management elements",
+    "Draw the open system: inputs → transformation → outputs + feedback",
+    "Contingency approach: why no universal rules?",
+    "Define algorithmic management (Lee et al., 2015) and digital Taylorism's familiar vs. new characteristics"
+  ],
   sections: [
     { h: "Early Management", blocks: [
       { t: "p", text: "Management practices evolved over time. Early examples that required management skills due to their size and scope: the Egyptian Pyramids, the Great Wall of China, and the Roman Catholic Church." },
@@ -215,18 +237,18 @@ window.COURSE = {
     ]},
     { h: "Classical Approach — Scientific Management", blocks: [
       { t: "def", term: "Classical approach", d: "First studies of management, which emphasized rationality and making organizations and workers as efficient as possible." },
-      { t: "def", term: "Scientific management (Frederick Winslow Taylor)", d: "An approach that involves using the scientific method to find the “one best way” for a job to be done. Taylor's time and motion studies at Bethlehem Steel focused on finding the best way to perform a specific task." },
-      { t: "list", title: "Taylor's four principles of scientific management", items: [
+      { t: "def", cat: "theory", term: "Scientific management (Frederick Winslow Taylor)", d: "An approach that involves using the scientific method to find the “one best way” for a job to be done. Taylor's time and motion studies at Bethlehem Steel focused on finding the best way to perform a specific task." },
+      { t: "list", cat: "theory", title: "Taylor's four principles of scientific management", items: [
         "1. Develop a science for each element of an individual's work to replace the old rule-of-thumb method",
         "2. Scientifically select and then train, teach, and develop the worker",
         "3. Cooperate with the workers to ensure all work is done in accordance with the principles of the science",
         "4. Divide work and responsibility almost equally between management and workers — management does all work for which it is better suited than the workers"
       ]},
-      { t: "def", term: "Therbligs (Frank and Lillian Gilbreth)", d: "A classification scheme for labeling 17 basic hand motions (“Gilbreth” spelled backwards with the “th” transposed). The Gilbreths studied hand-and-body motions to reduce waste and were among the first to use motion picture films for this; they focused on improving efficiency." }
+      { t: "def", cat: "theory", term: "Therbligs (Frank and Lillian Gilbreth)", d: "A classification scheme for labeling 17 basic hand motions (“Gilbreth” spelled backwards with the “th” transposed). The Gilbreths studied hand-and-body motions to reduce waste and were among the first to use motion picture films for this; they focused on improving efficiency." }
     ]},
     { h: "Classical Approach — General Administrative Theory", blocks: [
       { t: "p", text: "General administrative theorists looked at management by focusing on the entire organization. The most prominent were Henri Fayol and Max Weber." },
-      { t: "table", title: "Fayol's 14 principles of management", cols: ["Principle", "Meaning"], rows: [
+      { t: "table", cat: "theory", title: "Fayol's 14 principles of management", cols: ["Principle", "Meaning"], rows: [
         ["1. Division of work", "Specialization increases output by making employees more efficient"],
         ["2. Authority", "Managers must be able to give orders; authority gives them this right"],
         ["3. Discipline", "Employees must obey and respect the rules that govern the organization"],
@@ -242,8 +264,8 @@ window.COURSE = {
         ["13. Initiative", "Employees allowed to originate and carry out plans will exert high levels of effort"],
         ["14. Esprit de corps", "Promoting team spirit will build harmony and unity within the organization"]
       ]},
-      { t: "def", term: "Bureaucracy (Max Weber)", d: "Weber's ideal system of organization: characterized by division of labor, a clearly defined hierarchy, detailed rules and regulations, and impersonal relationships. He proposed it to show how work could be done; it became the framework for many of today's large organizations." },
-      { t: "list", title: "Characteristics of Weber's bureaucracy", items: [
+      { t: "def", cat: "theory", term: "Bureaucracy (Max Weber)", d: "Weber's ideal system of organization: characterized by division of labor, a clearly defined hierarchy, detailed rules and regulations, and impersonal relationships. He proposed it to show how work could be done; it became the framework for many of today's large organizations." },
+      { t: "list", cat: "theory", title: "Characteristics of Weber's bureaucracy", items: [
         "Division of labor — jobs broken down into simple, routine, well-defined tasks",
         "Authority hierarchy — positions organized in a hierarchy with a clear chain of command",
         "Formal selection — people selected for jobs based on technical qualifications",
@@ -254,19 +276,19 @@ window.COURSE = {
     ]},
     { h: "Social-Person Approaches", blocks: [
       { t: "def", term: "Social-person approaches", d: "Management theories that focus on the organization's human and social factors. Managers get things done by working with people." },
-      { t: "def", term: "Hawthorne Studies", d: "A series of studies during the 1920s and 1930s that provided new insights into individual and group behavior." },
-      { t: "list", title: "Conclusions of the Hawthorne Studies", items: [
+      { t: "def", cat: "theory", term: "Hawthorne Studies", d: "A series of studies during the 1920s and 1930s that provided new insights into individual and group behavior." },
+      { t: "list", cat: "theory", title: "Conclusions of the Hawthorne Studies", items: [
         "People's attitudes and behavior are closely related",
         "Group factors significantly affect individual behavior",
         "Group standards establish individual worker output",
         "Money is less a factor in determining output than group standards, group attitudes, and security"
       ]},
-      { t: "def", term: "Human relations movement", d: "A management approach based on the belief that a satisfied worker is a productive worker. These viewpoints were largely shaped by personal beliefs, not substantive research." },
+      { t: "def", cat: "limits", term: "Human relations movement", d: "A management approach based on the belief that a satisfied worker is a productive worker. These viewpoints were largely shaped by personal beliefs, not substantive research." },
       { t: "def", term: "Behavioral science theorists", d: "Researchers who engaged in OBJECTIVE research of human behavior in organizations — including Fred Fiedler, Victor Vroom, Frederick Herzberg, Edwin Locke, David McClelland, Robert House, and Richard Hackman (their contributions appear in later weeks)." }
     ]},
     { h: "Quantitative Approach", blocks: [
       { t: "def", term: "Quantitative approach", d: "The use of quantitative techniques to improve decision making; ultimately became known as management science. It evolved from military applications developed during WWII." },
-      { t: "def", term: "Total quality management (TQM)", d: "A philosophy of management that is driven by continuous improvement and responsiveness to customer needs and expectations. It emerged from the quantitative approach." },
+      { t: "def", cat: "theory", term: "Total quality management (TQM)", d: "A philosophy of management that is driven by continuous improvement and responsiveness to customer needs and expectations. It emerged from the quantitative approach." },
       { t: "list", title: "What is quality management? (6 elements)", items: [
         "Intense focus on the customer",
         "Concern for continual improvement",
@@ -280,12 +302,12 @@ window.COURSE = {
       { t: "def", term: "System", d: "A set of interrelated and interdependent parts arranged in a manner that produces a unified whole." },
       { t: "def", term: "Closed systems", d: "Systems that are not influenced by and do not interact with their environment." },
       { t: "def", term: "Open systems", d: "Systems that interact with their environment. As an open system, an organization takes in INPUTS (raw materials, human resources, capital, technology, information), runs them through a TRANSFORMATION PROCESS (employees' work activities, management activities, technology and operations methods), and sends OUTPUTS to the environment (products and services, financial results, information, human results) — with feedback from outputs to inputs." },
-      { t: "def", term: "Contingency approach", d: "A management approach that recognizes organizations as different, which means they face different situations (contingencies) and require different ways of managing. More than 100 contingency variables have been identified; its primary value is stressing that there are no simplistic or universal rules for managers to follow." }
+      { t: "def", cat: "theory", term: "Contingency approach", d: "A management approach that recognizes organizations as different, which means they face different situations (contingencies) and require different ways of managing. More than 100 contingency variables have been identified; its primary value is stressing that there are no simplistic or universal rules for managers to follow." }
     ]},
     { h: "New Management Approaches (instructor addition)", blocks: [
       { t: "p", text: "Technology and computerization strongly influence current management: many businesses are now obsolete; some organizations operate with virtual teams — people who work together but are geographically dispersed; the gig economy provides flexibility and freedom to employers and independent workers." },
-      { t: "def", term: "Algorithmic management", d: "“Software algorithms that assume managerial functions and surrounding institutional devices that support algorithms in practice” (Lee et al., 2015). Algorithmic management creates a deeper, digital version of Taylorism (Cameron, 2025; Noponen et al., 2024)." },
-      { t: "table", title: "Digital Taylorism (Noponen et al., 2024)", cols: ["Familiar characteristics", "New characteristics"], rows: [
+      { t: "def", cat: "theory", term: "Algorithmic management", d: "“Software algorithms that assume managerial functions and surrounding institutional devices that support algorithms in practice” (Lee et al., 2015). Algorithmic management creates a deeper, digital version of Taylorism (Cameron, 2025; Noponen et al., 2024)." },
+      { t: "table", cat: "theory", title: "Digital Taylorism (Noponen et al., 2024)", cols: ["Familiar characteristics", "New characteristics"], rows: [
         ["Piece-meal wage", "“Assembly line” extended to new professions"],
         ["Standardization", "Digital scaffolds instead of physical control"],
         ["Deskilling", "Control of output rather than process"],
@@ -443,6 +465,16 @@ window.COURSE = {
   week: 3,
   title: "The External and Internal Environment",
   blurb: "What constrains managers: the environment outside and the culture inside.",
+  checklist: [
+    "Contrast omnipotent vs. symbolic views; what constrains managerial discretion?",
+    "List the 6 general environment components and the 6 specific environment components",
+    "Draw Porter's Five Forces with rivalry at the center",
+    "Define the 2 uncertainty dimensions and describe all 4 cells of the matrix",
+    "Define organizational culture and its 6 dimensions",
+    "Give 5 contrasts between strong and weak cultures",
+    "Where culture comes from (founders) and what maintains it (practices, top managers)",
+    "Name the 4 culture transmission channels: stories, rituals, artifacts/symbols, language"
+  ],
   sections: [
     { h: "Omnipotent or Symbolic?", blocks: [
       { t: "def", term: "Omnipotent view", d: "Managers are directly responsible for an organization's success or failure." },
@@ -463,13 +495,13 @@ window.COURSE = {
         ["Investors", "Public companies are scrutinized by stockholders and potential investors; decisions should enhance shareholder value"],
         ["Special interest groups", "Lobbyists, protestors, and action groups can have a significant impact and effect change"]
       ]},
-      { t: "def", term: "Porter's Five Forces Model (Porter, 2008)", d: "The five forces shaping industry competition: (1) Rivalry among existing competitors — at the center; (2) Threat of new entrants; (3) Bargaining power of suppliers; (4) Bargaining power of buyers; (5) Threat of substitute products or services." }
+      { t: "def", cat: "theory", term: "Porter's Five Forces Model (Porter, 2008)", d: "The five forces shaping industry competition: (1) Rivalry among existing competitors — at the center; (2) Threat of new entrants; (3) Bargaining power of suppliers; (4) Bargaining power of buyers; (5) Threat of substitute products or services." }
     ]},
     { h: "Environmental Uncertainty", blocks: [
       { t: "p", text: "Environments differ in their degree of environmental uncertainty, which has two dimensions: degree of change and degree of complexity." },
       { t: "def", term: "Degree of change", d: "Dynamic environment: components change frequently. Stable environment: components change very little." },
       { t: "def", term: "Degree of complexity", d: "The number of components in an organization's environment and the extent of the knowledge the organization has about those components." },
-      { t: "table", title: "Environmental uncertainty matrix (change × complexity)", cols: ["Cell", "Description"], rows: [
+      { t: "table", cat: "theory", title: "Environmental uncertainty matrix (change × complexity)", cols: ["Cell", "Description"], rows: [
         ["Cell 1 (stable + simple)", "Stable, predictable environment; few, similar components that remain the same; minimal need for sophisticated knowledge — LOWEST uncertainty"],
         ["Cell 2 (dynamic + simple)", "Dynamic, unpredictable environment; few, similar components that continually change; minimal need for sophisticated knowledge"],
         ["Cell 3 (stable + complex)", "Stable, predictable environment; many dissimilar components that remain the same; high need for sophisticated knowledge"],
@@ -640,6 +672,18 @@ window.COURSE = {
   week: 4,
   title: "Strategy",
   blurb: "The strategic management process, corporate strategies, and competitive advantage.",
+  checklist: [
+    "Define strategic management, strategies, and business model",
+    "Recite the 5 steps of the strategic management process in order",
+    "List the 9 components of a mission statement",
+    "SWOT: which letters are internal, which are external?",
+    "Distinguish resources, capabilities, and core competencies",
+    "Growth strategies: concentration vs. vertical vs. horizontal integration vs. diversification (related/unrelated)",
+    "Stability vs. renewal (retrenchment, turnaround)",
+    "Draw the BCG matrix: stars, cash cows, question marks, dogs — and the axes",
+    "Define competitive advantage and the economic moat (Buffett)",
+    "Contrast cost leadership, differentiation, focus — and 'stuck in the middle'"
+  ],
   sections: [
     { h: "What Is Strategic Management?", blocks: [
       { t: "def", term: "Strategic management", d: "What managers do to develop the organization's strategies." },
@@ -654,7 +698,18 @@ window.COURSE = {
         "Step 4 — Implement strategies: no matter how well planned, performance suffers if strategies aren't implemented properly",
         "Step 5 — Evaluate results: how effective have strategies been? what adjustments are necessary?"
       ]},
-      { t: "def", term: "SWOT analysis", d: "An analysis of the organization's Strengths, Weaknesses, Opportunities, and Threats. Strengths: activities the organization does well or unique resources. Weaknesses: activities it does not do well or resources it needs but lacks. Opportunities: positive trends in the external environment. Threats: negative trends in the external environment." },
+      { t: "list", title: "Components of a mission statement (9)", items: [
+        "Customers — who are the firm's customers?",
+        "Markets — where does the firm compete geographically?",
+        "Concern for survival, growth, and profitability — is the firm committed to growth and financial stability?",
+        "Philosophy — what are the firm's basic beliefs, values, and ethical priorities?",
+        "Concern for public image — how responsive is the firm to societal and environmental concerns?",
+        "Products or services — what are the firm's major products or services?",
+        "Technology — is the firm technologically current?",
+        "Self-concept — what are the firm's major competitive advantage and core competencies?",
+        "Concern for employees — are employees a valuable asset of the firm?"
+      ]},
+      { t: "def", cat: "theory", term: "SWOT analysis", d: "An analysis of the organization's Strengths, Weaknesses, Opportunities, and Threats. Strengths: activities the organization does well or unique resources. Weaknesses: activities it does not do well or resources it needs but lacks. Opportunities: positive trends in the external environment. Threats: negative trends in the external environment." },
       { t: "def", term: "Resources", d: "An organization's assets used to develop, manufacture, and deliver products to its customers." },
       { t: "def", term: "Capabilities", d: "An organization's skills and abilities in doing the work activities needed in its business." },
       { t: "def", term: "Core competencies", d: "The organization's major value-creating capabilities that determine its competitive weapons." }
@@ -664,14 +719,14 @@ window.COURSE = {
       { t: "def", term: "Growth strategy", d: "A corporate strategy used when an organization wants to expand the number of markets served or products offered, through current or new businesses. Four ways: concentration, vertical integration, horizontal integration, diversification (related or unrelated)." },
       { t: "def", term: "Stability strategy", d: "A corporate strategy in which an organization continues to do what it is currently doing." },
       { t: "def", term: "Renewal strategy", d: "A corporate strategy designed to address declining performance. Two types: retrenchment and turnaround." },
-      { t: "def", term: "BCG matrix", d: "A strategy tool that guides resource allocation decisions on the basis of market share and growth rate of SBUs. Four categories: stars, cash cows, question marks, dogs." }
+      { t: "def", cat: "theory", term: "BCG matrix", d: "A strategy tool that guides resource allocation decisions on the basis of market share and growth rate of SBUs. Four categories: stars, cash cows, question marks, dogs." }
     ]},
     { h: "Competitive Strategy & Competitive Advantage", blocks: [
       { t: "def", term: "Competitive strategy", d: "An organizational strategy for how an organization will compete in its business(es)." },
       { t: "def", term: "Strategic business unit (SBU)", d: "The single independent businesses of an organization that formulate their own competitive strategies." },
       { t: "def", term: "Competitive advantage", d: "What sets an organization apart — its distinctive edge. It can stem from quality, low cost, technology, or other factors." },
-      { t: "def", term: "Economic moat", d: "Sustaining competitive advantage by protecting long-term profits and market share using various means. The term was popularized by Warren Buffett as a way to visualize keeping a competitive advantage." },
-      { t: "list", title: "Choosing a competitive advantage (competitive strategies)", items: [
+      { t: "def", cat: "theory", term: "Economic moat", d: "Sustaining competitive advantage by protecting long-term profits and market share using various means. The term was popularized by Warren Buffett as a way to visualize keeping a competitive advantage." },
+      { t: "list", cat: "theory", title: "Choosing a competitive advantage (competitive strategies)", items: [
         "Cost leadership strategy — competing on the lowest costs",
         "Differentiation strategy — competing by being unique",
         "Focus strategy — cost or differentiation advantage in a narrow segment",
@@ -831,10 +886,23 @@ window.COURSE = {
   week: 5,
   title: "Making Decisions",
   blurb: "From the 8-step process and bounded rationality to groupthink and how to manage it.",
+  checklist: [
+    "Recite the 8 decision-making steps in order",
+    "List the assumptions of full rationality",
+    "Define bounded rationality and satisficing",
+    "Name the 5 aspects of intuition (Exhibit 3-5) and the 4 EBMgt essentials",
+    "Procedure vs. rule vs. policy — with an example each",
+    "Contrast programmed vs. nonprogrammed decisions on all 7 dimensions",
+    "Recognize all 12 biases from a scenario (anchoring, sunk costs, hindsight…)",
+    "Give 4 advantages and 5 downsides of group decision-making",
+    "Define groupthink (Janis), its antecedents, and its 8 symptoms in 3 families",
+    "Asch numbers: 75% conformed at least once, ~32% average, >99% correct alone",
+    "List 6 techniques for managing group decision processes (devil's advocate…)"
+  ],
   sections: [
     { h: "The Decision-Making Process", blocks: [
       { t: "def", term: "Decision", d: "A conclusion or resolution made after considering alternatives. Managers at all levels and in every organizational unit make decisions." },
-      { t: "list", title: "The eight steps in the decision-making process", items: [
+      { t: "list", cat: "theory", title: "The eight steps in the decision-making process", items: [
         "1. Identifying a problem",
         "2. Identifying decision criteria",
         "3. Allocating weights to the criteria",
@@ -847,10 +915,10 @@ window.COURSE = {
     ]},
     { h: "How Managers Actually Decide", blocks: [
       { t: "def", term: "Rational decision making", d: "Choices that are logical and consistent and maximize value. Assumptions: the decision maker is logical and objective; the problem is clear and unambiguous; there is a clear, specific goal with awareness of all alternatives and consequences; the alternative that maximizes goal achievement is selected; decisions are made in the best interest of the organization." },
-      { t: "def", term: "Bounded rationality", d: "Decision making that's rational, but limited (bounded) by an individual's ability to process information." },
+      { t: "def", cat: "theory", term: "Bounded rationality", d: "Decision making that's rational, but limited (bounded) by an individual's ability to process information." },
       { t: "def", term: "Satisfice", d: "Accepting solutions that are “good enough” (rather than maximizing)." },
       { t: "def", term: "Intuitive decision making", d: "Making decisions on the basis of experience, feelings, and accumulated judgment. Exhibit 3-5 identifies five aspects of intuition: experience-based decisions, affect-initiated decisions (feelings/emotions), cognitive-based decisions (skills, knowledge, training), values or ethics-based decisions, and subconscious mental processing." },
-      { t: "def", term: "Evidence-based management (EBMgt)", d: "The systematic use of the best available evidence to improve management practice. Four essentials: (1) the decision maker's expertise and judgment; (2) external evidence evaluated by the decision maker; (3) opinions, preferences, and values of those who have a stake in the decision; (4) relevant organizational (internal) factors such as context, circumstances, and organizational members." }
+      { t: "def", cat: "theory", term: "Evidence-based management (EBMgt)", d: "The systematic use of the best available evidence to improve management practice. Four essentials: (1) the decision maker's expertise and judgment; (2) external evidence evaluated by the decision maker; (3) opinions, preferences, and values of those who have a stake in the decision; (4) relevant organizational (internal) factors such as context, circumstances, and organizational members." }
     ]},
     { h: "Types of Problems and Decisions", blocks: [
       { t: "def", term: "Structured problems → programmed decisions", d: "Structured problems are straightforward, familiar, and easily defined. Programmed decisions are repetitive decisions that can be handled by a routine approach. Three types: PROCEDURE (a series of sequential steps to respond to a well-structured problem), RULE (an explicit statement telling managers what can or cannot be done), POLICY (a guideline for making decisions)." },
@@ -867,7 +935,7 @@ window.COURSE = {
     ]},
     { h: "Heuristics and Biases", blocks: [
       { t: "def", term: "Heuristics", d: "“Rules of thumb” that can help make sense of complex, uncertain, or ambiguous information — but they can also lead to errors and biases in processing and evaluating information." },
-      { t: "list", title: "Common decision-making biases (Exhibit 3-8)", items: [
+      { t: "list", cat: "theory", title: "Common decision-making biases (Exhibit 3-8)", items: [
         "Overconfidence", "Immediate gratification", "Anchoring effect", "Selective perception", "Confirmation", "Framing", "Availability", "Representation", "Randomness", "Sunk costs", "Self-serving", "Hindsight"
       ]}
     ]},
@@ -888,8 +956,8 @@ window.COURSE = {
       { t: "p", text: "Group composition matters: the team may be loaded for political reasons; some members may be busy, unavailable, or drop out and be replaced by less optimal ones; some may have a bad attitude or vested interest. Individuals may be good, but the group weak. Beware of a senior executive influencing a decision by appointing “their person” to the team or signaling their preference by starting to “implement” the decision." }
     ]},
     { h: "Groupthink (Janis, 1982)", blocks: [
-      { t: "def", term: "Groupthink", d: "“A mode of thinking that people engage in when they are deeply involved in a cohesive group, when the members' strivings for unanimity override their motivation to realistically appraise alternative courses of action.” Members of a cohesive group maintain esprit de corps by unconsciously developing shared illusions and norms that interfere with critical thinking and reality testing." },
-      { t: "list", title: "Antecedents of groupthink", items: [
+      { t: "def", cat: "theory", term: "Groupthink", d: "“A mode of thinking that people engage in when they are deeply involved in a cohesive group, when the members' strivings for unanimity override their motivation to realistically appraise alternative courses of action.” Members of a cohesive group maintain esprit de corps by unconsciously developing shared illusions and norms that interfere with critical thinking and reality testing." },
+      { t: "list", cat: "theory", title: "Antecedents of groupthink", items: [
         "High cohesiveness",
         "Structural factors: insulated group, partisan leadership, no procedural protocols, ideological homogeneity",
         "Contextual factors: external pressure, members under stress, lack of optimism, low self-esteem"
@@ -897,7 +965,7 @@ window.COURSE = {
       { t: "list", title: "Decision-making characteristics of groupthink", items: [
         "Limited consideration of options", "Limited consideration of goals", "Limited cost-benefit appraisal", "Limited use of expert knowledge", "Undue attention to facts that support the ingroup choice", "Limited reappraisal of options", "Lack of contingency plans"
       ]},
-      { t: "table", title: "Symptoms of groupthink (3 families, 8 symptoms)", cols: ["Family", "Symptoms"], rows: [
+      { t: "table", cat: "theory", title: "Symptoms of groupthink (3 families, 8 symptoms)", cols: ["Family", "Symptoms"], rows: [
         ["Overestimation of group worth", "Illusion of invulnerability (ignore danger, overly optimistic, extraordinary risks); Sense of moral superiority (decisions seen as morally correct, ethics ignored; seeing the other as the bad guy)"],
         ["Closed-mindedness", "Collective rationalization (explain away warnings contrary to group thinking); Excessive stereotyping (negative stereotypes of rivals outside the group, out-of-date perceptions)"],
         ["Pressures towards uniformity", "Self-censorship (withhold dissent, keep silent about misgivings); Pressure to conform (applied to anyone expressing doubt); Illusion of unanimity (falsely perceive everyone agrees); Mind guards (self-appointed protectors from adverse information)"]
@@ -1064,6 +1132,19 @@ window.COURSE = {
   week: 6,
   title: "Organizational Structure",
   blurb: "The six elements of organizational design, mechanistic vs. organic, and structural types.",
+  checklist: [
+    "Define organizing, organizational structure, chart, and design",
+    "Name the 6 elements of organizational design",
+    "Explain the economies AND diseconomies of work specialization",
+    "List the 5 forms of departmentalization",
+    "Chain of command: line vs. staff authority, responsibility, unity of command",
+    "Span of control: 4,096 employees — span 4 vs. span 8 math",
+    "Give 4 factors favoring centralization and 4 favoring decentralization",
+    "Define formalization",
+    "Contrast mechanistic vs. organic on all 6 characteristics",
+    "How strategy, size (~2,000 employees), and uncertainty shape structure",
+    "Strengths and weaknesses of simple, functional, and divisional designs; matrix vs. project"
+  ],
   sections: [
     { h: "Elements of Organizational Design", blocks: [
       { t: "def", term: "Organizing", d: "Management function that involves arranging and structuring work to accomplish the organization's goals." },
@@ -1097,7 +1178,7 @@ window.COURSE = {
       { t: "def", term: "6. Formalization", d: "How standardized an organization's jobs are and the extent to which employee behavior is guided by rules and procedures. Traditional management favored high formalization; today's view gives employees more discretion." }
     ]},
     { h: "Mechanistic vs. Organic & Contingency Factors", blocks: [
-      { t: "table", title: "Mechanistic vs. organic organizations", cols: ["Mechanistic", "Organic"], rows: [
+      { t: "table", cat: "theory", title: "Mechanistic vs. organic organizations", cols: ["Mechanistic", "Organic"], rows: [
         ["High specialization", "Cross-functional teams"],
         ["Rigid departmentalization", "Cross-hierarchical teams"],
         ["Clear chain of command", "Free flow of information"],
@@ -1271,9 +1352,25 @@ window.COURSE = {
   week: 8,
   title: "Managing Human Resources",
   blurb: "The HRM process: planning, hiring, developing, and retaining competent employees.",
+  checklist: [
+    "Recite the 8 HRM activities in their 3 groups",
+    "HR planning: 2 steps; define job analysis, job description, job specifications",
+    "Define recruitment and decruitment",
+    "Selection = prediction; define validity and reliability and tell them apart",
+    "Work unit vs. organization orientation; name 5+ training types",
+    "Training (current job) vs. development (future roles — Microsoft example)",
+    "Performance appraisal: its 2 purposes and the problem with annual reviews",
+    "Define electronic performance monitoring + call-center metrics",
+    "Skill-based pay vs. variable pay; list 6 pay determinants"
+  ],
   sections: [
     { h: "The HRM Process", blocks: [
-      { t: "p", text: "To ensure the organization has qualified people to perform all the work, eight HRM activities are split into three major groups: (1) ensuring that competent employees are identified and selected — HR planning, recruitment (and decruitment), selection; (2) providing employees with up-to-date knowledge and skills — orientation, training; (3) ensuring that the organization retains competent and high-performing employees — performance management, compensation and benefits, career development. The whole process operates within the external environment." }
+      { t: "p", text: "To ensure the organization has qualified people to perform all the work, EIGHT HRM activities are split into THREE major groups — and the whole process operates within the EXTERNAL ENVIRONMENT." },
+      { t: "list", cat: "theory", title: "The HRM process: 8 activities in 3 groups", items: [
+        "Group 1 — Identify and select competent employees: human resource planning → recruitment (and decruitment) → selection",
+        "Group 2 — Provide employees with up-to-date knowledge and skills: orientation → training",
+        "Group 3 — Retain competent, high-performing employees: performance management → compensation and benefits → career development"
+      ]}
     ]},
     { h: "Identifying and Selecting Competent Employees", blocks: [
       { t: "def", term: "Human resource planning", d: "Ensuring that the organization has the right number and kinds of capable people in the right places and at the right times. Two steps: assessing current human resources, and meeting future HR needs (determined by the organization's mission, goals, and strategies)." },
@@ -1445,6 +1542,20 @@ window.COURSE = {
   week: 9,
   title: "Change Management",
   blurb: "Types of change, why people resist, and the models for leading change.",
+  checklist: [
+    "Define organizational change, change agent, and VUCA",
+    "Sort forces for change into external vs. internal",
+    "Explain the white-water rapids metaphor",
+    "Name the 5 types of change with one example each",
+    "When is culture easier to change (4 conditions)? Name 4 change levers",
+    "Describe all 5 OD techniques and pick the right one for a scenario",
+    "Reactions to change: cognitive / affective / instrumental (Elizur & Guttman)",
+    "Active-overt vs. passive-covert resistance; the 4 reasons people resist",
+    "Walk through Kübler-Ross' 7 phases and Scott & Jaffe's 4 stages with the right response per stage",
+    "Recite the 6 resistance-reduction techniques with when/advantage/disadvantage",
+    "Lewin: what happens in unfreezing, changing, refreezing",
+    "Kotter's 8 steps in exact order"
+  ],
   sections: [
     { h: "The Case for Change", blocks: [
       { t: "def", term: "Organizational change", d: "Any alteration of people, structure, or technology in an organization." },
@@ -1462,10 +1573,10 @@ window.COURSE = {
         ["Culture", "Shifting in response to internal or external factors — very difficult, but possible"]
       ]},
       { t: "p", text: "Culture is easier to change when: a dramatic crisis occurs; leadership changes hands; the organization is young and small; the culture is weak. Ways of changing culture: lead by example, craft new narratives, support champions, redesign socialization, align rewards, clarify expectations, shift subcultures, build consensus and trust." },
-      { t: "def", term: "Organizational development (OD)", d: "Change methods that focus on people and the nature and quality of interpersonal work relationships. Popular OD techniques: SENSITIVITY TRAINING (changing behavior through unstructured group interaction), SURVEY FEEDBACK (assessing attitudes and perceptions, identifying discrepancies, and resolving differences using survey information in feedback groups), TEAM BUILDING (activities that help team members learn how each member thinks and works), PROCESS CONSULTATION (an outside consultant helps the manager understand how interpersonal processes are affecting the way work is done), and INTERGROUP DEVELOPMENT (changing the attitudes, stereotypes, and perceptions that work groups have about each other)." }
+      { t: "def", cat: "theory", term: "Organizational development (OD)", d: "Change methods that focus on people and the nature and quality of interpersonal work relationships. Popular OD techniques: SENSITIVITY TRAINING (changing behavior through unstructured group interaction), SURVEY FEEDBACK (assessing attitudes and perceptions, identifying discrepancies, and resolving differences using survey information in feedback groups), TEAM BUILDING (activities that help team members learn how each member thinks and works), PROCESS CONSULTATION (an outside consultant helps the manager understand how interpersonal processes are affecting the way work is done), and INTERGROUP DEVELOPMENT (changing the attitudes, stereotypes, and perceptions that work groups have about each other)." }
     ]},
     { h: "Reactions and Resistance to Change", blocks: [
-      { t: "list", title: "Possible reactions to change (Elizur and Guttman, 1976)", items: [
+      { t: "list", cat: "theory", title: "Possible reactions to change (Elizur and Guttman, 1976)", items: [
         "Cognitive: opinions regarding the usefulness and necessity of change, and the knowledge required to manage it",
         "Affective: feelings of satisfaction or anxiety about change",
         "Instrumental: actions already taken or to be taken to manage change"
@@ -1478,14 +1589,14 @@ window.COURSE = {
       { t: "list", title: "Why do people resist change?", items: [
         "Uncertainty", "Habit", "Fear of loss", "Belief that the change is inconsistent with the goals of the organization"
       ]},
-      { t: "def", term: "Reaction curve: Kübler-Ross' grief model", d: "Stages over time — Shock (surprised by the event) → Denial (looking for clues that this is not true) → Frustration (recognizes things are different; sometimes angry) → Depression (bad mood, lack of energy) → Experimentation (first engagement with the new situation) → Decision (learning to work in the new situation; more positive) → Integration (changes integrated; a new person)." },
-      { t: "table", title: "How to help resisters: Scott & Jaffe's Resistance Cycle (1988)", cols: ["Stage", "What happens", "How to help"], rows: [
+      { t: "def", cat: "theory", term: "Reaction curve: Kübler-Ross' grief model", d: "Stages over time — Shock (surprised by the event) → Denial (looking for clues that this is not true) → Frustration (recognizes things are different; sometimes angry) → Depression (bad mood, lack of energy) → Experimentation (first engagement with the new situation) → Decision (learning to work in the new situation; more positive) → Integration (changes integrated; a new person)." },
+      { t: "table", cat: "theory", title: "How to help resisters: Scott & Jaffe's Resistance Cycle (1988)", cols: ["Stage", "What happens", "How to help"], rows: [
         ["Denial", "Refuses to believe anything needs to change", "Make them aware of reality"],
         ["Resistance", "Anger, depression, mourning the past", "Individuals need time to express their feelings"],
         ["Exploration", "Begins to accept change, learns and experiments with new things", "Encourage individuals and let them focus"],
         ["Commitment", "Adapts to the new environment", "Celebrate successes"]
       ]},
-      { t: "table", title: "Techniques for reducing resistance to change", cols: ["Technique", "When used", "Advantage", "Disadvantage"], rows: [
+      { t: "table", cat: "theory", title: "Techniques for reducing resistance to change", cols: ["Technique", "When used", "Advantage", "Disadvantage"], rows: [
         ["Education and communication", "When resistance is due to misinformation", "Clear up misunderstandings", "May not work when mutual trust and credibility are lacking"],
         ["Participation", "When resisters have the expertise to make a contribution", "Increase involvement and acceptance", "Time-consuming; has potential for a poor solution"],
         ["Facilitation and support", "When resisters are fearful and anxiety ridden", "Can facilitate needed adjustments", "Expensive; no guarantee of success"],
@@ -1495,8 +1606,8 @@ window.COURSE = {
       ]}
     ]},
     { h: "Models for Implementing Change", blocks: [
-      { t: "def", term: "Lewin's model (1947): Unfreezing → Changing → Refreezing", d: "UNFREEZING: recognize the need for change; determine what needs to change; ensure management supports the change; manage and understand doubts and concerns. CHANGING: plan for change; implement change; help employees learn new concepts and perspectives. REFREEZING: changes are reinforced and stabilized; integrate changes into new ways of doing things; develop ways to sustain change; celebrate success." },
-      { t: "list", title: "Kotter's 8 steps for implementing change (1995)", items: [
+      { t: "def", cat: "theory", term: "Lewin's model (1947): Unfreezing → Changing → Refreezing", d: "UNFREEZING: recognize the need for change; determine what needs to change; ensure management supports the change; manage and understand doubts and concerns. CHANGING: plan for change; implement change; help employees learn new concepts and perspectives. REFREEZING: changes are reinforced and stabilized; integrate changes into new ways of doing things; develop ways to sustain change; celebrate success." },
+      { t: "list", cat: "theory", title: "Kotter's 8 steps for implementing change (1995)", items: [
         "1. Create urgency",
         "2. Form a coalition",
         "3. Create a vision",
@@ -1658,15 +1769,30 @@ window.COURSE = {
   week: 10,
   title: "Leadership",
   blurb: "Trait, behavioral, contingency, and contemporary theories — plus power and gender.",
+  checklist: [
+    "Define leader and leadership; why did trait research fail?",
+    "Iowa: autocratic / democratic / laissez-faire and the finding",
+    "Ohio State (consideration, initiating structure) and Michigan (employee/production oriented)",
+    "Managerial Grid: what does 9,9 mean?",
+    "Fiedler: what LPC measures, the 3 situational contingencies, and who wins at the extremes vs. middle",
+    "SLT: match telling/selling/participating/delegating to R1–R4",
+    "Path-goal: 4 leader behaviors + the 2 sets of contingency factors",
+    "Define LMX and its in-group consequences",
+    "Contrast transactional vs. transformational; define charismatic",
+    "Authentic leadership's 4 qualities; ethical (Ed Bastian); servant leadership's unique feature",
+    "Emergent leadership and the 5 good-follower traits",
+    "Recite the 5 power sources with definitions",
+    "Glass ceiling vs. glass cliff (Ryan & Haslam) + 4 research findings on female leaders"
+  ],
   sections: [
     { h: "Who Are Leaders?", blocks: [
       { t: "def", term: "Leader", d: "Someone who can influence others and who has managerial authority." },
       { t: "def", term: "Leadership", d: "A process of influencing a group to achieve goals." },
-      { t: "def", term: "Trait theories", d: "Research focused on identifying personal characteristics that differentiated leaders from non-leaders was UNSUCCESSFUL — it proved impossible to identify a set of traits that would always differentiate a leader (the person) from a non-leader." }
+      { t: "def", cat: "limits", term: "Trait theories", d: "Research focused on identifying personal characteristics that differentiated leaders from non-leaders was UNSUCCESSFUL — it proved impossible to identify a set of traits that would always differentiate a leader (the person) from a non-leader." }
     ]},
     { h: "Behavioral Theories", blocks: [
       { t: "def", term: "Behavioral theories", d: "Leadership theories that identify behaviors that differentiate effective leaders from ineffective leaders." },
-      { t: "table", title: "The four behavioral studies", cols: ["Study", "Behavioral dimensions", "Conclusion"], rows: [
+      { t: "table", cat: "theory", title: "The four behavioral studies", cols: ["Study", "Behavioral dimensions", "Conclusion"], rows: [
         ["University of Iowa", "Democratic style (involving subordinates, delegating authority, encouraging participation); Autocratic style (dictating work methods, centralizing decision making, limiting participation); Laissez-faire style (giving the group freedom to make decisions and complete work)", "Democratic style was most effective, although later studies showed mixed results"],
         ["Ohio State", "Consideration (being considerate of followers' ideas and feelings); Initiating structure (structuring work and work relationships to meet job goals)", "The high-high leader (high consideration AND high initiating structure) achieved high subordinate performance and satisfaction — but not in all situations"],
         ["University of Michigan", "Employee oriented (emphasized interpersonal relationships and taking care of employees' needs); Production oriented (emphasized technical or task aspects of the job)", "Employee-oriented leaders were associated with high group productivity and higher job satisfaction"],
@@ -1674,23 +1800,23 @@ window.COURSE = {
       ]}
     ]},
     { h: "Contingency Theories", blocks: [
-      { t: "def", term: "Fiedler contingency model", d: "Effective group performance depends on the proper match between a leader's style and the degree to which the situation allows the leader to control and influence. The LEAST-PREFERRED COWORKER (LPC) questionnaire measures whether a leader is task or relationship oriented. Three situational contingencies: LEADER–MEMBER RELATIONS (degree of confidence, trust, and respect employees have for their leader), TASK STRUCTURE (degree to which job assignments are formalized and structured), POSITION POWER (degree of influence over hiring, firing, discipline, promotions, salary increases). Findings: task-oriented leaders perform best in HIGHLY FAVORABLE and HIGHLY UNFAVORABLE situations; relationship-oriented leaders perform best in MODERATELY favorable situations." },
-      { t: "def", term: "Hersey and Blanchard's Situational Leadership Theory (SLT)", d: "A contingency theory that focuses on followers' READINESS — the extent to which people have the ability and willingness to accomplish a specific task. Four leadership styles: TELLING (high task–low relationship), SELLING (high task–high relationship), PARTICIPATING (low task–high relationship), DELEGATING (low task–low relationship). Four stages of follower readiness: R1 both unable and unwilling → telling; R2 unable but willing → selling; R3 able but unwilling → participating; R4 both able and willing → delegating." },
-      { t: "def", term: "Path-goal theory", d: "The leader's job is to assist followers in attaining their goals and to provide direction or support needed to ensure their goals are compatible with the goals of the group or organization. Four leadership behaviors: DIRECTIVE, SUPPORTIVE, PARTICIPATIVE, ACHIEVEMENT-ORIENTED. The model includes environmental contingency factors (task structure, formal authority system, work group) and subordinate contingency factors (locus of control, experience, perceived ability), leading to outcomes (performance, satisfaction)." }
+      { t: "def", cat: "theory", term: "Fiedler contingency model", d: "Effective group performance depends on the proper match between a leader's style and the degree to which the situation allows the leader to control and influence. The LEAST-PREFERRED COWORKER (LPC) questionnaire measures whether a leader is task or relationship oriented. Three situational contingencies: LEADER–MEMBER RELATIONS (degree of confidence, trust, and respect employees have for their leader), TASK STRUCTURE (degree to which job assignments are formalized and structured), POSITION POWER (degree of influence over hiring, firing, discipline, promotions, salary increases). Findings: task-oriented leaders perform best in HIGHLY FAVORABLE and HIGHLY UNFAVORABLE situations; relationship-oriented leaders perform best in MODERATELY favorable situations." },
+      { t: "def", cat: "theory", term: "Hersey and Blanchard's Situational Leadership Theory (SLT)", d: "A contingency theory that focuses on followers' READINESS — the extent to which people have the ability and willingness to accomplish a specific task. Four leadership styles: TELLING (high task–low relationship), SELLING (high task–high relationship), PARTICIPATING (low task–high relationship), DELEGATING (low task–low relationship). Four stages of follower readiness: R1 both unable and unwilling → telling; R2 unable but willing → selling; R3 able but unwilling → participating; R4 both able and willing → delegating." },
+      { t: "def", cat: "theory", term: "Path-goal theory", d: "The leader's job is to assist followers in attaining their goals and to provide direction or support needed to ensure their goals are compatible with the goals of the group or organization. Four leadership behaviors: DIRECTIVE, SUPPORTIVE, PARTICIPATIVE, ACHIEVEMENT-ORIENTED. The model includes environmental contingency factors (task structure, formal authority system, work group) and subordinate contingency factors (locus of control, experience, perceived ability), leading to outcomes (performance, satisfaction)." }
     ]},
     { h: "Contemporary Theories", blocks: [
-      { t: "def", term: "Leader-member exchange (LMX) theory", d: "Leaders create in-groups and out-groups; those in the in-group will have higher performance ratings, less turnover, and greater job satisfaction." },
+      { t: "def", cat: "theory", term: "Leader-member exchange (LMX) theory", d: "Leaders create in-groups and out-groups; those in the in-group will have higher performance ratings, less turnover, and greater job satisfaction." },
       { t: "def", term: "Charismatic leader", d: "An enthusiastic, self-confident leader whose personality and actions influence people to behave in certain ways. There is ongoing debate about whether charismatic leadership can be taught or whether people are born with the traits." },
       { t: "def", term: "Transactional leaders", d: "Leaders who lead primarily by using social exchanges (or transactions)." },
-      { t: "def", term: "Transformational leaders", d: "Leaders who stimulate and inspire (transform) followers to achieve extraordinary outcomes." },
-      { t: "def", term: "Authentic leadership", d: "Leaders who know who they are, know what they believe in, and act on those values and beliefs openly and candidly. It focuses on the moral aspects of being a leader. Four qualities: (1) self-aware, (2) transparent, (3) openly solicit views that challenge their deeply held positions, (4) guided by strong moral standards." },
+      { t: "def", cat: "theory", term: "Transformational leaders", d: "Leaders who stimulate and inspire (transform) followers to achieve extraordinary outcomes." },
+      { t: "def", cat: "theory", term: "Authentic leadership", d: "Leaders who know who they are, know what they believe in, and act on those values and beliefs openly and candidly. It focuses on the moral aspects of being a leader. Four qualities: (1) self-aware, (2) transparent, (3) openly solicit views that challenge their deeply held positions, (4) guided by strong moral standards." },
       { t: "def", term: "Ethical leadership", d: "An ethical leader puts public safety ahead of profits, holds culpable employees accountable, and creates a culture in which employees feel they could and should do a better job. Example: Delta Airlines CEO Ed Bastian's actions during the COVID-19 pandemic." },
-      { t: "def", term: "Servant leadership", d: "Servant leaders go beyond their own self-interest and focus on helping followers grow and develop. Its unique feature: it puts the needs of followers ahead of the leader's own needs. May be more prevalent and effective in certain cultures, such as Eastern Asian cultures." },
+      { t: "def", cat: "theory", term: "Servant leadership", d: "Servant leaders go beyond their own self-interest and focus on helping followers grow and develop. Its unique feature: it puts the needs of followers ahead of the leader's own needs. May be more prevalent and effective in certain cultures, such as Eastern Asian cultures." },
       { t: "def", term: "Emergent leadership", d: "Occurs when the leader of a group or team naturally arises instead of being appointed. Emergent leaders are perceived by their peers as leaderlike and accepted as the informal leader; they lead at the team level, have not been formally appointed, and do not play a permanent role." },
       { t: "def", term: "Followership", d: "Leaders need good followers to be effective. Good follower traits: ability to self-manage; strong commitment to purpose; enthusiasm; they build competence; courageous, honest, and credible." }
     ]},
     { h: "Leadership and Power", blocks: [
-      { t: "table", title: "Five sources of leader power", cols: ["Power", "Definition"], rows: [
+      { t: "table", cat: "theory", title: "Five sources of leader power", cols: ["Power", "Definition"], rows: [
         ["Legitimate power", "The power a leader has as a result of his or her position in the organization"],
         ["Coercive power", "The power a leader has to punish or control"],
         ["Reward power", "The power a leader has to give positive rewards"],
@@ -1700,7 +1826,7 @@ window.COURSE = {
     ]},
     { h: "Leadership and Gender (instructor addition)", blocks: [
       { t: "p", text: "Some figures — USA: in 2023, 10.6% of Fortune 500 CEOs were women; less than 1% are women of color; in 2022, 30.4% of board members were women (Pew Research Center, 2023). Lebanon: in 2019, women represented 29% of senior and middle management (World Bank, 2019); data on women in leadership remains scarce." },
-      { t: "def", term: "Glass phenomena", d: "From the GLASS CEILING (invisible barrier keeping women from top positions) to the GLASS CLIFF (women over-represented in precarious leadership positions — Ryan & Haslam, 2005)." },
+      { t: "def", cat: "theory", term: "Glass phenomena", d: "From the GLASS CEILING (invisible barrier keeping women from top positions) to the GLASS CLIFF (women over-represented in precarious leadership positions — Ryan & Haslam, 2005)." },
       { t: "list", title: "Female leaders and performance — research findings", items: [
         "Women are now seen as equally or more competent than men (Eagly et al., 2018/2020)",
         "The presence of a female leader leads perceivers to anticipate fairer treatment (Joshi & Diekman, 2021/2022)",
@@ -1863,41 +1989,55 @@ window.COURSE = {
   week: 11,
   title: "Motivation",
   blurb: "Early and modern motivation theories, job design, SDT, and motivation under algorithms.",
+  checklist: [
+    "Define motivation and its 3 elements: energy, direction, persistence",
+    "Maslow's 5 levels in order + the 3 evidence-based limits",
+    "Herzberg: hygiene vs. motivators, the two separate continua, + 2 method limits",
+    "McClelland: nAch, nPow, nAff — acquired, not innate; evidence for nAch",
+    "Goal-setting: specific + difficult-but-accepted goals; define self-efficacy",
+    "Job scope/enlargement vs. job depth/enrichment",
+    "JCM: 5 core dimensions → 3 psychological states → outcomes, moderated by growth-need strength",
+    "Equity theory: ratio comparisons, referents, distributive vs. procedural justice",
+    "Expectancy: linkages A (effort→performance), B (performance→reward), C (reward attractiveness)",
+    "SDT continuum: amotivation → external → introjected → identified → integrated → intrinsic; 3 basic needs",
+    "The 6 algorithmic management functions and each one's motivational effect (Gagné et al., 2022)",
+    "Design features of motivation-enhancing algorithmic management"
+  ],
   sections: [
     { h: "What Is Motivation?", blocks: [
       { t: "def", term: "Motivation", d: "The process by which a person's efforts are energized, directed, and sustained toward attaining a goal. Three key elements: (1) ENERGY, (2) DIRECTION, (3) PERSISTENCE." }
     ]},
     { h: "Early Theories of Motivation", blocks: [
-      { t: "def", term: "Maslow's hierarchy of needs theory", d: "Human needs — physiological, safety, social, esteem, and self-actualization — form a hierarchy, and each level must be substantially satisfied before the next need becomes dominant. (Pyramid from bottom to top: physiological → safety → social → esteem → self-actualization.)" },
-      { t: "list", title: "Maslow's pyramid: some limits", items: [
+      { t: "def", cat: "theory", term: "Maslow's hierarchy of needs theory", d: "Human needs — physiological, safety, social, esteem, and self-actualization — form a hierarchy, and each level must be substantially satisfied before the next need becomes dominant. (Pyramid from bottom to top: physiological → safety → social → esteem → self-actualization.)" },
+      { t: "list", cat: "limits", title: "Maslow's pyramid: some limits", items: [
         "Very popular in the 1960s–70s, but very little evidence for the ranking of needs or even for the existence of a definite hierarchy at all (Wahba & Bridwell, 1976)",
         "Little support for the prepotent nature of needs and the utility of need theories more generally (Kanfer et al., 2017)",
         "Need theories do not predict specific behaviors (Campbell & Pritchard, 1976)"
       ]},
-      { t: "def", term: "Herzberg's two-factor theory (motivation-hygiene theory)", d: "Intrinsic factors are related to job satisfaction and motivation, whereas extrinsic factors are associated with job dissatisfaction. HYGIENE FACTORS: extrinsic factors that remove job dissatisfaction (supervision, company policy, relationship with supervisor, working conditions, salary, relationship with peers, personal life, relationship with subordinates, status, security). MOTIVATORS: intrinsic factors having to do with the job itself (achievement, recognition, the work itself, responsibility, advancement, growth). Herzberg's view: the opposite of satisfaction is NO satisfaction (motivators), and the opposite of dissatisfaction is NO dissatisfaction (hygiene) — two separate continua, unlike the traditional satisfied↔dissatisfied view." },
-      { t: "list", title: "Two-factor theory: some limits", items: [
+      { t: "def", cat: "theory", term: "Herzberg's two-factor theory (motivation-hygiene theory)", d: "Intrinsic factors are related to job satisfaction and motivation, whereas extrinsic factors are associated with job dissatisfaction. HYGIENE FACTORS: extrinsic factors that remove job dissatisfaction (supervision, company policy, relationship with supervisor, working conditions, salary, relationship with peers, personal life, relationship with subordinates, status, security). MOTIVATORS: intrinsic factors having to do with the job itself (achievement, recognition, the work itself, responsibility, advancement, growth). Herzberg's view: the opposite of satisfaction is NO satisfaction (motivators), and the opposite of dissatisfaction is NO dissatisfaction (hygiene) — two separate continua, unlike the traditional satisfied↔dissatisfied view." },
+      { t: "list", cat: "limits", title: "Two-factor theory: some limits", items: [
         "Used the critical incident method (“recall times when you felt good or bad about your job”), which introduced self-serving bias",
         "Original samples were white-collar professionals; studies with blue-collar workers have not always replicated his findings"
       ]},
-      { t: "def", term: "Three-needs theory (McClelland)", d: "Three ACQUIRED (not innate) needs are major motives in work: NEED FOR ACHIEVEMENT (nAch) — the drive to succeed and excel in relation to a set of standards; NEED FOR POWER (nPow) — the need to make others behave in a way they would not have behaved otherwise; NEED FOR AFFILIATION (nAff) — the desire for friendly and close interpersonal relationships. Evidence: employees high on nAch exhibit more positive moods, greater interest in the task at hand, and perform very well in high-stakes conditions; research also supports the nPow and nAff concepts." }
+      { t: "def", cat: "theory", term: "Three-needs theory (McClelland)", d: "Three ACQUIRED (not innate) needs are major motives in work: NEED FOR ACHIEVEMENT (nAch) — the drive to succeed and excel in relation to a set of standards; NEED FOR POWER (nPow) — the need to make others behave in a way they would not have behaved otherwise; NEED FOR AFFILIATION (nAff) — the desire for friendly and close interpersonal relationships. Evidence: employees high on nAch exhibit more positive moods, greater interest in the task at hand, and perform very well in high-stakes conditions; research also supports the nPow and nAff concepts." }
     ]},
     { h: "Modern Theories of Motivation", blocks: [
-      { t: "def", term: "Goal-setting theory", d: "Specific goals increase performance, and difficult goals, when ACCEPTED, result in higher performance than easy goals. Self-generated feedback on progress strengthens the effect." },
+      { t: "def", cat: "theory", term: "Goal-setting theory", d: "Specific goals increase performance, and difficult goals, when ACCEPTED, result in higher performance than easy goals. Self-generated feedback on progress strengthens the effect." },
       { t: "def", term: "Self-efficacy", d: "An individual's belief that he or she is capable of performing a task." },
       { t: "def", term: "Job design", d: "The way tasks are combined to form complete jobs. JOB SCOPE: the number of different tasks required in a job and the frequency with which they are repeated. JOB ENLARGEMENT: horizontal expansion of a job by increasing job scope. JOB ENRICHMENT: vertical expansion of a job by adding planning and evaluating responsibilities. JOB DEPTH: the degree of control employees have over their work." },
-      { t: "def", term: "Job characteristics model (JCM)", d: "A framework for analyzing and designing jobs: five core job dimensions — SKILL VARIETY, TASK IDENTITY, TASK SIGNIFICANCE (→ experienced meaningfulness of the work), AUTONOMY (→ experienced responsibility for outcomes of the work), and FEEDBACK (→ knowledge of the actual results of work activities) — produce outcomes: high internal work motivation, high-quality work performance, high satisfaction with the work, and low absenteeism. The links are moderated by the strength of the employee's GROWTH NEED." },
-      { t: "def", term: "Equity theory", d: "An employee compares their job's inputs-outcomes ratio with that of relevant others and then corrects any inequity. If the ratio is equitable — no problem; if inequitable, they see themselves as under-rewarded or over-rewarded. REFERENTS: the persons, systems, or selves against which individuals compare themselves. DISTRIBUTIVE JUSTICE: perceived fairness of the amount and allocation of rewards among individuals. PROCEDURAL JUSTICE: perceived fairness of the process used to determine the distribution of rewards." },
-      { t: "def", term: "Expectancy theory", d: "An individual tends to act in a certain way based on the expectation that the act will be followed by a given outcome and on the attractiveness of that outcome to the individual. Three linkages: A — EFFORT–PERFORMANCE linkage (individual effort → individual performance); B — PERFORMANCE–REWARD linkage (individual performance → organizational rewards); C — ATTRACTIVENESS OF REWARD (organizational rewards → individual goals)." }
+      { t: "def", cat: "theory", term: "Job characteristics model (JCM)", d: "A framework for analyzing and designing jobs: five core job dimensions — SKILL VARIETY, TASK IDENTITY, TASK SIGNIFICANCE (→ experienced meaningfulness of the work), AUTONOMY (→ experienced responsibility for outcomes of the work), and FEEDBACK (→ knowledge of the actual results of work activities) — produce outcomes: high internal work motivation, high-quality work performance, high satisfaction with the work, and low absenteeism. The links are moderated by the strength of the employee's GROWTH NEED." },
+      { t: "def", cat: "theory", term: "Equity theory", d: "An employee compares their job's inputs-outcomes ratio with that of relevant others and then corrects any inequity. If the ratio is equitable — no problem; if inequitable, they see themselves as under-rewarded or over-rewarded. REFERENTS: the persons, systems, or selves against which individuals compare themselves. DISTRIBUTIVE JUSTICE: perceived fairness of the amount and allocation of rewards among individuals. PROCEDURAL JUSTICE: perceived fairness of the process used to determine the distribution of rewards." },
+      { t: "def", cat: "theory", term: "Expectancy theory", d: "An individual tends to act in a certain way based on the expectation that the act will be followed by a given outcome and on the attractiveness of that outcome to the individual. Three linkages: A — EFFORT–PERFORMANCE linkage (individual effort → individual performance); B — PERFORMANCE–REWARD linkage (individual performance → organizational rewards); C — ATTRACTIVENESS OF REWARD (organizational rewards → individual goals)." }
     ]},
     { h: "Self-Determination Theory (Ryan & Deci, 2000)", blocks: [
-      { t: "def", term: "The motivation continuum", d: "From AMOTIVATION through EXTRINSIC MOTIVATION to INTRINSIC MOTIVATION. Extrinsic motivation has four regulation types: EXTERNAL regulation → INTROJECTED regulation → IDENTIFIED regulation → INTEGRATED regulation, the last two lying beyond the self-determination threshold (with intrinsic regulation)." },
-      { t: "def", term: "Basic psychological needs", d: "COMPETENCE, RELATEDNESS, and AUTONOMY. “Satisfaction of the three psychological needs will enhance employees' intrinsic motivation” (Gagné & Deci, 2005). Combined, they enhance positive work outcomes such as job satisfaction, effective performance, organizational citizenship behaviors, and well-being." }
+      { t: "def", cat: "theory", term: "The motivation continuum", d: "From AMOTIVATION through EXTRINSIC MOTIVATION to INTRINSIC MOTIVATION. Extrinsic motivation has four regulation types: EXTERNAL regulation → INTROJECTED regulation → IDENTIFIED regulation → INTEGRATED regulation, the last two lying beyond the self-determination threshold (with intrinsic regulation)." },
+      { t: "def", cat: "theory", term: "Basic psychological needs", d: "COMPETENCE, RELATEDNESS, and AUTONOMY. “Satisfaction of the three psychological needs will enhance employees' intrinsic motivation” (Gagné & Deci, 2005). Combined, they enhance positive work outcomes such as job satisfaction, effective performance, organizational citizenship behaviors, and well-being." }
     ]},
     { h: "Motivation in the Algorithmic Management Era (instructor addition)", blocks: [
-      { t: "list", title: "Six management functions performed by algorithms (Parent-Rocheleau & Parker, 2022)", items: [
+      { t: "list", cat: "theory", title: "Six management functions performed by algorithms (Parent-Rocheleau & Parker, 2022)", items: [
         "Monitoring", "Task assignment and/or goal setting", "Performance management", "Scheduling", "Compensation management", "Job termination"
       ]},
-      { t: "table", title: "What that means for motivation (Gagné et al., 2022)", cols: ["Function", "Motivational effect"], rows: [
+      { t: "table", cat: "theory", title: "What that means for motivation (Gagné et al., 2022)", cols: ["Function", "Motivational effect"], rows: [
         ["Monitoring", "Decreases autonomy and negatively affects employees' intrinsic motivation"],
         ["Task assignment / goal setting", "Tends to simplify work, making it less motivating (low need for competence)"],
         ["Performance management", "Negatively affects autonomous motivation and can foster a competitive climate"],
@@ -1905,7 +2045,7 @@ window.COURSE = {
         ["Compensation management", "Pay-for-performance is linked to decreases in autonomy feelings"],
         ["Job termination", "Work deactivation because of “low performance” impedes workers' autonomy and feelings of competence"]
       ]},
-      { t: "def", term: "Motivation-enhancing algorithmic management (Parent-Rocheleau et al., 2024)", d: "System characteristics — ensuring transparency, keeping humans in the loop — and policies and practices — limiting surveillance and monitoring, managing productivity fairly, maintaining pay stability, providing constructive feedback, preserving relationships — support the three psychological needs (autonomy, competence, relatedness) and thus self-determined motivation." }
+      { t: "def", cat: "theory", term: "Motivation-enhancing algorithmic management (Parent-Rocheleau et al., 2024)", d: "System characteristics — ensuring transparency, keeping humans in the loop — and policies and practices — limiting surveillance and monitoring, managing productivity fairly, maintaining pay stability, providing constructive feedback, preserving relationships — support the three psychological needs (autonomy, competence, relatedness) and thus self-determined motivation." }
     ]}
   ],
   mcqs: [
@@ -2057,17 +2197,30 @@ window.COURSE = {
   week: 12,
   title: "Managing Groups and Teams",
   blurb: "Group development, structure, conflict, teams vs. groups, and psychological safety.",
+  checklist: [
+    "Define group; formal vs. informal",
+    "The 5 stages of group development + 6 limits of the model",
+    "Group performance/satisfaction model: external conditions + member resources → structure, processes, tasks",
+    "Define role, norms, status, social loafing",
+    "Cohesiveness × goal-alignment matrix: all 4 productivity outcomes",
+    "Three views of conflict: traditional, human relations, interactionist",
+    "Functional vs. dysfunctional conflict + the inverted-U curve",
+    "Task vs. relationship vs. process conflict — and Behfar's best resolution for each",
+    "Groups vs. teams: 7+ contrasts (leadership, accountability, work, meetings, measurement)",
+    "The 9 characteristics of effective teams",
+    "Define psychological safety (Edmondson), how it differs from cohesiveness, and 6 ways to foster it"
+  ],
   sections: [
     { h: "Groups and Group Development", blocks: [
       { t: "def", term: "Group", d: "Two or more interacting and interdependent individuals who come together to achieve specific goals. FORMAL groups are defined by the organization; INFORMAL groups arise naturally." },
-      { t: "list", title: "Stages of group development (5)", items: [
+      { t: "list", cat: "theory", title: "Stages of group development (5)", items: [
         "Stage 1 — Forming",
         "Stage 2 — Storming",
         "Stage 3 — Norming",
         "Stage 4 — Performing",
         "Stage 5 — Adjourning"
       ]},
-      { t: "list", title: "Limits of the stage model", items: [
+      { t: "list", cat: "limits", title: "Limits of the stage model", items: [
         "Assumes the group becomes more effective as it progresses through the first four stages — not always true; group behavior is more complex",
         "The process is not always linear; several stages may occur simultaneously; groups may regress",
         "Some conflict can be conducive to high performance",
@@ -2086,22 +2239,22 @@ window.COURSE = {
       { t: "def", term: "Norms", d: "Standards or expectations that are accepted and shared by a group's members." },
       { t: "def", term: "Status", d: "A prestige grading, position, or rank within a group (status systems)." },
       { t: "def", term: "Social loafing", d: "The tendency for individuals to expend less effort when working collectively than when working individually (a group-size effect)." },
-      { t: "def", term: "Group cohesiveness", d: "The degree to which group members are attracted to one another and share the group's goals. Cohesiveness × goal alignment matrix: high cohesiveness + high alignment with organizational goals → STRONG increase in productivity; low cohesiveness + high alignment → moderate increase; high cohesiveness + low alignment → DECREASE in productivity; low cohesiveness + low alignment → no significant effect." }
+      { t: "def", cat: "theory", term: "Group cohesiveness", d: "The degree to which group members are attracted to one another and share the group's goals. Cohesiveness × goal alignment matrix: high cohesiveness + high alignment with organizational goals → STRONG increase in productivity; low cohesiveness + high alignment → moderate increase; high cohesiveness + low alignment → DECREASE in productivity; low cohesiveness + low alignment → no significant effect." }
     ]},
     { h: "Group Processes: Conflict", blocks: [
       { t: "def", term: "Conflict", d: "Perceived incompatible differences that result in interference or opposition." },
-      { t: "list", title: "Three views of conflict", items: [
+      { t: "list", cat: "theory", title: "Three views of conflict", items: [
         "Traditional view: all conflict is bad and must be avoided",
         "Human relations view: conflict is a natural and inevitable outcome in any group",
         "Interactionist view: some conflict is NECESSARY for a group to perform effectively"
       ]},
-      { t: "def", term: "Functional vs. dysfunctional conflicts", d: "Functional conflicts support a group's goals and improve its performance; dysfunctional conflicts prevent a group from achieving its goals. The conflict–performance curve is an inverted U: at low/no conflict the group is apathetic, stagnant, unresponsive to change, lacking new ideas (dysfunctional → low performance); at an OPTIMAL level conflict is functional — the group is viable, self-critical (high performance); at high conflict the group is disruptive, chaotic, uncooperative (dysfunctional → low performance)." },
+      { t: "def", cat: "theory", term: "Functional vs. dysfunctional conflicts", d: "Functional conflicts support a group's goals and improve its performance; dysfunctional conflicts prevent a group from achieving its goals. The conflict–performance curve is an inverted U: at low/no conflict the group is apathetic, stagnant, unresponsive to change, lacking new ideas (dysfunctional → low performance); at an OPTIMAL level conflict is functional — the group is viable, self-critical (high performance); at high conflict the group is disruptive, chaotic, uncooperative (dysfunctional → low performance)." },
       { t: "list", title: "Types of conflict", items: [
         "Task conflict: conflict over content and goals of the work",
         "Relationship conflict: conflict based on interpersonal relationships",
         "Process conflict: conflict over how work gets done"
       ]},
-      { t: "list", title: "How to resolve conflicts? (Behfar et al., 2008)", items: [
+      { t: "list", cat: "theory", title: "How to resolve conflicts? (Behfar et al., 2008)", items: [
         "Voting as a procedure",
         "Compromise or consensus to reach agreement",
         "Discussion or debate of ideas and opinions",
@@ -2110,7 +2263,7 @@ window.COURSE = {
         "Avoidance or ignoring of conflict by the team",
         "Rotation of responsibilities: procedures for allocating responsibilities within the team"
       ]},
-      { t: "table", title: "Type of conflict → resolution that increases performance and satisfaction (Behfar et al., 2008)", cols: ["Type of conflict", "Resolution approach"], rows: [
+      { t: "table", cat: "theory", title: "Type of conflict → resolution that increases performance and satisfaction (Behfar et al., 2008)", cols: ["Type of conflict", "Resolution approach"], rows: [
         ["Task", "Use discussion/debate and open communication to reach compromise/consensus"],
         ["Relationship", "Use discussion/debate and specific solutions to avoid/ignore conflicts [decreased satisfaction]"],
         ["Procedure (process)", "Discussion/debate and compromise/consensus to establish rotating responsibilities"]
@@ -2129,13 +2282,13 @@ window.COURSE = {
         ["Performance measured directly by evaluating collective work output", "Performance measured indirectly by its influence on others"],
         ["Work is decided upon and done together; can be quickly assembled, deployed, refocused, and disbanded", "Work decided by group leader and delegated to individual members"]
       ]},
-      { t: "list", title: "Characteristics of effective teams (9)", items: [
+      { t: "list", cat: "theory", title: "Characteristics of effective teams (9)", items: [
         "Clear goals", "Relevant skills", "Mutual trust", "Unified commitment", "Good communication", "Negotiating skills", "Appropriate leadership", "Internal support", "External support"
       ]}
     ]},
     { h: "Team Psychological Safety (instructor addition)", blocks: [
-      { t: "def", term: "Team psychological safety", d: "“A shared belief that the team is safe for interpersonal risk taking” (Edmondson, 1999). It DIFFERS from group cohesiveness: cohesiveness can reduce willingness to disagree with others (e.g., groupthink — Janis, 1982). Psychological safety is associated with learning behavior (seeking feedback, sharing information, asking for help, speaking up) and with individual and team performance (Edmondson, 1999; Edmondson & Bransby, 2023). Example: Google's Project Aristotle." },
-      { t: "list", title: "Edmondson's (1999) psychological safety scale — sample items", items: [
+      { t: "def", cat: "theory", term: "Team psychological safety", d: "“A shared belief that the team is safe for interpersonal risk taking” (Edmondson, 1999). It DIFFERS from group cohesiveness: cohesiveness can reduce willingness to disagree with others (e.g., groupthink — Janis, 1982). Psychological safety is associated with learning behavior (seeking feedback, sharing information, asking for help, speaking up) and with individual and team performance (Edmondson, 1999; Edmondson & Bransby, 2023). Example: Google's Project Aristotle." },
+      { t: "list", cat: "theory", title: "Edmondson's (1999) psychological safety scale — sample items", items: [
         "If you make a mistake on this team, it is often held against you (reverse-scored)",
         "Members of this team are able to bring up problems and tough issues",
         "People on this team sometimes reject others for being different (reverse-scored)",
@@ -2303,6 +2456,18 @@ window.COURSE = {
   week: 13,
   title: "Managing Communication",
   blurb: "The communication process, barriers, the communication square, and organizational flows.",
+  checklist: [
+    "Define communication: transfer AND understanding; interpersonal vs. organizational",
+    "Formal vs. informal communication; the 5 functions",
+    "Draw the communication process: encoding → message → channel → decoding, with noise and context",
+    "Nonverbal: body language vs. verbal intonation",
+    "List the 6 barriers and the 5 ways to overcome them (incl. active listening definition)",
+    "Communication Square: the 4 sides, each ear's strength + weakness, and the 4-side preparation grid",
+    "Downward / upward / lateral / diagonal flows with examples",
+    "Chain vs. wheel vs. all-channel on speed, accuracy, leader emergence, satisfaction",
+    "Define the grapevine and how managers should treat it",
+    "The 4 persuasion elements, 4 speaker characteristics, and the writing rules"
+  ],
   sections: [
     { h: "What Is Communication?", blocks: [
       { t: "def", term: "Communication", d: "The transfer AND understanding of meaning." },
@@ -2333,7 +2498,7 @@ window.COURSE = {
         "Constrain emotions",
         "Watch nonverbal cues"
       ]},
-      { t: "def", term: "The Communication Square (four sides / four “ears”)", d: "A tool to communicate better: every message carries four layers. CONTENT (what I talk to you about — the objective facts), RELATIONSHIP (what I think about you/us — what does s/he think of me?), APPEAL (what I want you to do — what does s/he want from me?), SELF-REVELATION (what I reveal of myself — what is going on with him or her?). Each “ear” has strengths and weaknesses: Content ear — factual, neutral, result-oriented, objective / blind to emotional nuances, impersonal. Relationship ear — sensitive, reads between the lines, human / vulnerable, easily hurt, takes everything personally. Appeal ear — cooperative, obliging, goal-oriented / will be exploited, little focus on own needs. Self-revelation ear — empathetic, understanding / shifts problems to others, doesn't question him/herself. To prepare an important conversation, plan all four sides: Which topics and arguments (content)? How will the other feel treated (relationship)? What do I want to achieve — min/max goal (appeal)? How do I feel and what do I share (self-revelation)?" }
+      { t: "def", cat: "theory", term: "The Communication Square (four sides / four “ears”)", d: "A tool to communicate better: every message carries four layers. CONTENT (what I talk to you about — the objective facts), RELATIONSHIP (what I think about you/us — what does s/he think of me?), APPEAL (what I want you to do — what does s/he want from me?), SELF-REVELATION (what I reveal of myself — what is going on with him or her?). Each “ear” has strengths and weaknesses: Content ear — factual, neutral, result-oriented, objective / blind to emotional nuances, impersonal. Relationship ear — sensitive, reads between the lines, human / vulnerable, easily hurt, takes everything personally. Appeal ear — cooperative, obliging, goal-oriented / will be exploited, little focus on own needs. Self-revelation ear — empathetic, understanding / shifts problems to others, doesn't question him/herself. To prepare an important conversation, plan all four sides: Which topics and arguments (content)? How will the other feel treated (relationship)? What do I want to achieve — min/max goal (appeal)? How do I feel and what do I share (self-revelation)?" }
     ]},
     { h: "Organizational Communication", blocks: [
       { t: "list", title: "Direction of flow", items: [
@@ -2342,11 +2507,11 @@ window.COURSE = {
         "Lateral: among employees on the same organizational level",
         "Diagonal: cuts across work areas AND organizational levels"
       ]},
-      { t: "def", term: "Communication networks", d: "The variety of patterns of vertical and horizontal flows of organizational communication. Three types compared on four criteria — CHAIN: moderate speed, high accuracy, moderate leader emergence, moderate member satisfaction; WHEEL: fast, high accuracy, high leader emergence, low member satisfaction; ALL-CHANNEL: fast, moderate accuracy, no leader emergence, high member satisfaction." },
+      { t: "def", cat: "theory", term: "Communication networks", d: "The variety of patterns of vertical and horizontal flows of organizational communication. Three types compared on four criteria — CHAIN: moderate speed, high accuracy, moderate leader emergence, moderate member satisfaction; WHEEL: fast, high accuracy, high leader emergence, low member satisfaction; ALL-CHANNEL: fast, moderate accuracy, no leader emergence, high member satisfaction." },
       { t: "def", term: "Grapevine", d: "The informal organizational communication network." }
     ]},
     { h: "Communication & You", blocks: [
-      { t: "def", term: "Persuasion skills", d: "Skills that enable a person to influence others to change their minds or behavior. Four basic elements: (1) be clear about the “who,” “what,” and “why”; (2) keep it simple; (3) think about the other person's needs, motivation, and interests when shaping your argument; (4) appeal to the “head” and the “heart” by combining rational and emotional arguments." },
+      { t: "def", cat: "theory", term: "Persuasion skills", d: "Skills that enable a person to influence others to change their minds or behavior. Four basic elements: (1) be clear about the “who,” “what,” and “why”; (2) keep it simple; (3) think about the other person's needs, motivation, and interests when shaping your argument; (4) appeal to the “head” and the “heart” by combining rational and emotional arguments." },
       { t: "def", term: "Speaking skills", d: "The ability to communicate information and ideas in talking so others will understand. Effective speakers show: authenticity, humility, brevity, and a clear understanding of the audience." },
       { t: "def", term: "Writing skills", d: "Communicating effectively in text as appropriate for the needs of the audience. Rules: think before you write; be direct (get to the point quickly); cut the fat (eliminate unnecessary words); avoid jargon and grandiose language (strive for clarity, not to impress); be professional (formal communications differ from emails, texts, and social media — no abbreviations, acronyms, or textspeak)." }
     ]}
