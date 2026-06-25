@@ -15,7 +15,8 @@
   var HISTORY_CAP = 100;         // max stored attempts
   var MARKS_CASE = 10;           // marks per case question (AI grading)
   var MARKS_ESSAY = 20;          // marks per essay (AI grading)
-  var DEFAULT_MODEL = "claude-sonnet-4-20250514";
+  var DEFAULT_MODEL = "claude-haiku-4-5";   // fast, low-cost; used for marking + tutor chat
+  var LEGACY_MODELS = ["claude-sonnet-4-20250514"]; // auto-migrate old saved defaults to Haiku
 
   /* ---------------- storage ---------------- */
   function loadStore() {
@@ -23,6 +24,8 @@
     catch (e) { return {}; }
   }
   var store = loadStore();
+  // Migrate previously-saved Sonnet default to Haiku (user switched to Haiku AI).
+  if (store.aiModel && LEGACY_MODELS.indexOf(store.aiModel) !== -1) { store.aiModel = DEFAULT_MODEL; }
   function save() {
     try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch (e) { /* private mode / full */ }
   }
@@ -169,6 +172,7 @@
     theory: { label: "Framework · Theory", cls: "cat-theory" },
     limits: { label: "Limits · Critique", cls: "cat-limits" },
     ex:     { label: "Example",           cls: "cat-ex" },
+    tip:    { label: "Exam tip",          cls: "cat-tip" },
     table:  { label: "Compare",           cls: "cat-table" }
   };
   function chip(b) {
@@ -222,13 +226,14 @@
 
     html += '<div class="btn-row">';
     if (weakN) html += '<button class="btn small" id="weakBtn">🎯 Drill my ' + weakN + " weak questions</button>";
+    html += '<button class="btn small ghost" id="lecTutor">💬 Ask the AI tutor</button>';
     html += '<a class="btn small ghost" href="#/history/' + L.id + '">🕑 History for this lecture</a>';
     html += "</div>";
 
     // legend + expand controls
     html += '<div class="notes-bar">';
     html += '<div class="legend">';
-    html += '<span class="cat-chip cat-def">Definition</span><span class="cat-chip cat-theory">Framework · Theory</span><span class="cat-chip cat-ex">Example</span><span class="cat-chip cat-limits">Limits</span><span class="cat-chip cat-table">Compare</span>';
+    html += '<span class="cat-chip cat-def">Definition</span><span class="cat-chip cat-theory">Framework · Theory</span><span class="cat-chip cat-ex">Example</span><span class="cat-chip cat-tip">Exam tip</span><span class="cat-chip cat-limits">Limits</span><span class="cat-chip cat-table">Compare</span>';
     html += "</div>";
     html += '<div class="exp-controls"><button class="btn small ghost" id="expandAll">Expand all</button><button class="btn small ghost" id="collapseAll">Collapse all</button></div>';
     html += "</div>";
@@ -263,6 +268,8 @@
     });
     var wb = document.getElementById("weakBtn");
     if (wb) wb.addEventListener("click", function () { startQuiz(L.id, "weak"); });
+    var lt = document.getElementById("lecTutor");
+    if (lt) lt.addEventListener("click", function () { if (!aiKey()) { location.hash = "#/settings"; return; } openLectureTutor(L); });
 
     app.querySelectorAll(".sec-head").forEach(function (head) {
       head.addEventListener("click", function () { head.parentElement.classList.toggle("open"); });
@@ -437,8 +444,12 @@
         ex += esc(m.e);
         if (quiz.scope === "final") ex += '<span class="src-tag">From Week ' + item.L.week + " — " + esc(item.L.title) + "</span>";
         ex += "</div>";
-        ex += '<div class="btn-row"><button class="btn primary" id="nextBtn">' + (quiz.i + 1 < quiz.items.length ? "Next question →" : "See results") + "</button></div>";
+        ex += '<div class="btn-row">';
+        if (aiKey()) ex += '<button class="btn ghost" id="tutorBtn">💬 Ask the tutor</button>';
+        ex += '<button class="btn primary" id="nextBtn">' + (quiz.i + 1 < quiz.items.length ? "Next question →" : "See results") + "</button></div>";
         document.getElementById("explainSlot").innerHTML = ex;
+        var tb = document.getElementById("tutorBtn");
+        if (tb) tb.addEventListener("click", function () { openMcqTutor(m, m.o[chosen], right, item.L.week); });
         document.getElementById("nextBtn").addEventListener("click", function () {
           quiz.i++;
           if (quiz.i < quiz.items.length) renderQuestion();
@@ -482,17 +493,28 @@
     html += '<a class="btn ghost" href="#/history/' + scope + '">View history</a>';
     html += "</div></div>";
 
-    if (quiz.wrong.length) {
+    var wrongLog = quiz.log.filter(function (e) { return !e.ok; });
+    if (wrongLog.length) {
       html += '<div class="card"><h3>Review your wrong answers</h3>';
-      quiz.wrong.forEach(function (it) {
-        var m = it.L.mcqs[it.qi];
+      wrongLog.forEach(function (e, i) {
+        var L = findLecture(e.lec), m = L.mcqs[e.qi];
         html += '<div class="review-item"><strong>' + esc(m.q) + "</strong><br>";
-        html += '<span class="muted">Answer: </span>' + esc(m.o[m.a]) + "<br>";
-        html += '<span class="muted small">' + esc(m.e) + "</span></div>";
+        html += '<span class="muted">Your answer: </span>' + esc(e.chosen) + "<br>";
+        html += '<span class="muted">Correct: </span>' + esc(m.o[m.a]) + "<br>";
+        html += '<span class="muted small">' + esc(m.e) + "</span>";
+        if (aiKey()) html += '<div class="btn-row"><button class="btn small ghost rev-tutor" data-i="' + i + '">💬 Discuss with tutor</button></div>';
+        html += "</div>";
       });
       html += "</div>";
     }
     app.innerHTML = html;
+    app.querySelectorAll(".rev-tutor").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var e = wrongLog[parseInt(btn.getAttribute("data-i"), 10)];
+        var L = findLecture(e.lec);
+        openMcqTutor(L.mcqs[e.qi], e.chosen, false, e.week);
+      });
+    });
     var lastSize = n;
     document.getElementById("newQuiz").addEventListener("click", function () {
       if (scope === "final") startQuiz("final", "adaptive", lastSize);
@@ -592,42 +614,50 @@
     return p;
   }
 
+  function anthropicHeaders() {
+    return {
+      "content-type": "application/json",
+      "x-api-key": aiKey(),
+      "anthropic-version": "2023-06-01",
+      "anthropic-dangerous-direct-browser-access": "true"
+    };
+  }
+  function apiErrMessage(status, body) {
+    var msg = (body && body.error && body.error.message) || ("HTTP " + status);
+    if (status === 401) msg = "Invalid API key — check it in AI Settings.";
+    else if (status === 404) msg = "Model not found (" + aiModel() + "). Change the model in AI Settings (e.g., claude-haiku-4-5).";
+    else if (status === 429) msg = "Rate limited by the API — wait a minute and try again.";
+    else if (status === 413) msg = "Too large — try fewer/clearer photos or a shorter message.";
+    else if (status >= 500) msg = "The API is temporarily overloaded — try again shortly.";
+    return msg;
+  }
+  function apiText(body) {
+    var text = "";
+    (body.content || []).forEach(function (blk) { if (blk.type === "text") text += blk.text; });
+    return text;
+  }
+  // Core call. messages = [{role, content}] (content = string or block array). Returns assistant text.
+  function anthropicChat(system, messages, maxTokens) {
+    var body = { model: aiModel(), max_tokens: maxTokens || 1024, messages: messages };
+    if (system) body.system = system;
+    return fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST", headers: anthropicHeaders(), body: JSON.stringify(body)
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (resBody) {
+        if (!res.ok) throw new Error(apiErrMessage(res.status, resBody));
+        return apiText(resBody);
+      });
+    }, function () {
+      throw new Error("Network error — check your connection (and that nothing blocks api.anthropic.com).");
+    });
+  }
+  // Grading: single user turn (photos + prompt) → text (then parsed as JSON feedback).
   function callClaude(images, prompt) {
     var content = images.map(function (b64) {
       return { type: "image", source: { type: "base64", media_type: "image/jpeg", data: b64 } };
     });
     content.push({ type: "text", text: prompt });
-    return fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "x-api-key": aiKey(),
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true"
-      },
-      body: JSON.stringify({
-        model: aiModel(),
-        max_tokens: 1500,
-        messages: [{ role: "user", content: content }]
-      })
-    }).then(function (res) {
-      return res.json().catch(function () { return {}; }).then(function (body) {
-        if (!res.ok) {
-          var msg = (body && body.error && body.error.message) || ("HTTP " + res.status);
-          if (res.status === 401) msg = "Invalid API key — check it in AI Settings.";
-          if (res.status === 404) msg = "Model not found (" + aiModel() + "). It may be retired — change the model in AI Settings (e.g., claude-sonnet-4-6).";
-          if (res.status === 429) msg = "Rate limited by the API — wait a minute and try again.";
-          if (res.status === 413) msg = "Photos too large — try fewer or clearer photos.";
-          if (res.status >= 500) msg = "The API is temporarily overloaded — try again shortly.";
-          throw new Error(msg);
-        }
-        var text = "";
-        (body.content || []).forEach(function (blk) { if (blk.type === "text") text += blk.text; });
-        return text;
-      });
-    }, function () {
-      throw new Error("Network error — check your connection (and that nothing blocks api.anthropic.com).");
-    });
+    return anthropicChat(null, [{ role: "user", content: content }], 1500);
   }
 
   function parseFeedback(text, marks) {
@@ -661,7 +691,8 @@
       h += "</ul>";
     }
     if (fb.advice) h += '<p class="ai-sub">💡 Advice</p><p class="small">' + esc(fb.advice) + "</p>";
-    if (fb.ts) h += '<p class="muted small" style="margin-bottom:0">Marked ' + fmtDate(fb.ts) + " · " + esc(fb.model || "") + "</p>";
+    if (fb.ts) h += '<p class="muted small" style="margin:0">Marked ' + fmtDate(fb.ts) + " · " + esc(fb.model || "") + "</p>";
+    if (aiKey()) h += '<div class="btn-row" style="margin-top:10px"><button class="btn small ghost fb-tutor">💬 Discuss this feedback with the tutor</button></div>';
     h += "</div>";
     return h;
   }
@@ -685,6 +716,8 @@
     return h;
   }
 
+  var lastImages = {};   // session cache: "lecId:key" -> [base64] for "discuss feedback" with the photo
+
   function wireSubmitZones(L, payloadFor) {
     app.querySelectorAll(".submit-zone").forEach(function (zone) {
       var key = zone.getAttribute("data-key");
@@ -692,6 +725,12 @@
       var panel = zone.querySelector(".ai-panel");
       openBtn.addEventListener("click", function () {
         panel.hidden = !panel.hidden;
+      });
+      // "Discuss this feedback" — delegated so it works on both stored and freshly-rendered feedback
+      zone.addEventListener("click", function (e) {
+        if (e.target.closest && e.target.closest(".fb-tutor")) {
+          openFeedbackTutor(L, key, payloadFor(key));
+        }
       });
       var fileInput = zone.querySelector(".ai-file");
       if (!fileInput) return; // no API key — panel only links to settings
@@ -731,6 +770,7 @@
             var s = lstate(L.id);
             s.aiFb = s.aiFb || {};
             s.aiFb[key] = fb;
+            lastImages[L.id + ":" + key] = images.slice();   // keep photo for "discuss feedback"
             save();
             var old = zone.querySelector(".ai-feedback");
             if (old) old.remove();
@@ -871,15 +911,15 @@
   /* ---------------- settings ---------------- */
   function renderSettings() {
     var html = '<a class="back-link" href="#/">← Home</a>';
-    html += "<h1>AI Marking Settings</h1>";
-    html += '<p class="lead">Photo answers are sent straight from this browser to the Claude API with your own key. The key is stored only on this device and never leaves it except to api.anthropic.com.</p>';
+    html += "<h1>AI Tutor &amp; Marking Settings</h1>";
+    html += '<p class="lead">Powers the AI tutor (one-to-one chat on any question) and photo marking of cases &amp; essays. Requests go straight from this browser to the Claude API with your own key, stored only on this device.</p>';
     html += '<div class="card">';
     html += '<h3>Anthropic API key</h3>';
     html += '<p class="small muted">Create one at console.anthropic.com → API keys. Usage is billed to your Anthropic account (a graded photo costs roughly $0.01–0.03).</p>';
     html += '<input type="password" id="keyInput" class="text-input" placeholder="sk-ant-…" value="' + esc(aiKey()) + '" autocomplete="off">';
     html += '<h3 style="margin-top:18px">Model</h3>';
     html += '<input type="text" id="modelInput" class="text-input" value="' + esc(aiModel()) + '" autocomplete="off">';
-    html += '<p class="small muted">Default: claude-sonnet-4-20250514. ⚠️ Anthropic retires this model on <strong>June 15, 2026</strong> — if marking stops working, change this to <code>claude-sonnet-4-6</code>.</p>';
+    html += '<p class="small muted">Default: <code>claude-haiku-4-5</code> — fast and the cheapest model, great for marking and tutoring (a graded photo costs well under a cent). For deeper feedback you can switch to <code>claude-sonnet-4-6</code> or <code>claude-opus-4-8</code>, at higher cost.</p>';
     html += '<div class="btn-row">';
     html += '<button class="btn primary" id="saveKey">Save</button>';
     html += '<button class="btn" id="testKey"' + (aiKey() ? "" : " disabled") + ">Test connection</button>";
@@ -929,6 +969,159 @@
       }).catch(function () {
         statusEl.textContent = "✗ Network/CORS error — check your connection.";
       });
+    });
+  }
+
+  /* ============================================================
+     CONVERSATIONAL AI TUTOR — one-to-one advising over chat.
+     Opens from any MCQ, any case/essay feedback, or a whole lecture.
+     ============================================================ */
+  var tutor = null;
+
+  function tutorSystem(extra) {
+    return "You are a warm, encouraging one-on-one tutor for MNGT 215 — Fundamentals of Management & Organizational Behavior at the American University of Beirut (textbook: Robbins, Coulter & Long, 2024, Management, 16th Global Edition). "
+      + "Teach for real understanding: explain the reasoning step by step, use the course's exact terminology and the named theorists, frameworks and models, give a concrete example, and offer a memory hook when it helps. "
+      + "Keep replies short and conversational — a few sentences or a short bullet list, never a long essay — and end by checking understanding or inviting the next question. "
+      + "Stay within this management course; if asked something off-topic, gently steer back. You may use **bold** and simple bullet lists (lines starting with '- '). "
+      + (extra || "");
+  }
+  function stripMsg(m) { return { role: m.role, content: m.content }; }
+
+  function openTutor(opts) {
+    tutor = { system: opts.system, messages: opts.messages || [], busy: false, error: "" };
+    var ov = document.getElementById("tutorOverlay");
+    if (ov) ov.remove();
+    ov = document.createElement("div");
+    ov.id = "tutorOverlay";
+    ov.className = "tutor-overlay";
+    ov.innerHTML =
+      '<div class="tutor-modal" role="dialog" aria-label="AI tutor">' +
+        '<div class="tutor-head"><span class="tutor-title">💬 ' + esc(opts.title || "AI Tutor") + "</span>" +
+        '<button class="icon-btn tutor-close" type="button" aria-label="Close">✕</button></div>' +
+        '<div class="tutor-msgs" id="tutorMsgs"></div>' +
+        '<form class="tutor-input" id="tutorForm">' +
+          '<textarea id="tutorText" rows="1" placeholder="Ask a follow-up… (e.g. why is option B wrong?)"></textarea>' +
+          '<button type="submit" class="btn primary tutor-send">Send</button>' +
+        "</form>" +
+      "</div>";
+    document.body.appendChild(ov);
+    document.body.classList.add("modal-open");
+    ov.querySelector(".tutor-close").addEventListener("click", closeTutor);
+    ov.addEventListener("click", function (e) { if (e.target === ov) closeTutor(); });
+    var form = document.getElementById("tutorForm");
+    var ta = document.getElementById("tutorText");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var v = ta.value.trim();
+      if (!v || tutor.busy) return;
+      ta.value = ""; ta.style.height = "auto";
+      tutor.messages.push({ role: "user", content: v });
+      tutor.error = "";
+      renderTutorMsgs();
+      tutorReply();
+    });
+    ta.addEventListener("input", function () { ta.style.height = "auto"; ta.style.height = Math.min(120, ta.scrollHeight) + "px"; });
+    ta.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.dispatchEvent(new Event("submit")); }
+    });
+    renderTutorMsgs();
+    if (opts.autoreply) tutorReply();
+    else ta.focus();
+  }
+  function closeTutor() {
+    var ov = document.getElementById("tutorOverlay");
+    if (ov) ov.remove();
+    document.body.classList.remove("modal-open");
+    tutor = null;
+  }
+  // tiny markdown for AI replies: **bold**, `code`, and - bullet lists
+  function mdLite(s) {
+    var h = esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/`([^`]+)`/g, "<code>$1</code>");
+    var lines = h.split("\n"), out = [], inList = false;
+    lines.forEach(function (ln) {
+      if (/^\s*[-*]\s+/.test(ln)) {
+        if (!inList) { out.push("<ul class='clean'>"); inList = true; }
+        out.push("<li>" + ln.replace(/^\s*[-*]\s+/, "") + "</li>");
+      } else {
+        if (inList) { out.push("</ul>"); inList = false; }
+        if (ln.trim() !== "") out.push("<p>" + ln + "</p>");
+      }
+    });
+    if (inList) out.push("</ul>");
+    return out.join("");
+  }
+  function renderTutorMsgs() {
+    var box = document.getElementById("tutorMsgs");
+    if (!box) return;
+    var h = "";
+    tutor.messages.forEach(function (m) {
+      if (m._hide) return;
+      var who = m.role === "user" ? "me" : "ai";
+      var text = typeof m.content === "string" ? m.content : "📷 (your photo answer)";
+      h += '<div class="bubble ' + who + '">' + (who === "ai" ? mdLite(text) : esc(text)) + "</div>";
+    });
+    if (tutor.busy) h += '<div class="bubble ai typing"><span></span><span></span><span></span></div>';
+    if (tutor.error) h += '<div class="bubble ai err">⚠️ ' + esc(tutor.error) + "</div>";
+    box.innerHTML = h;
+    box.scrollTop = box.scrollHeight;
+    var send = document.querySelector(".tutor-send");
+    if (send) send.disabled = tutor.busy;
+  }
+  function tutorReply() {
+    if (!aiKey()) { tutor.error = "Add your API key in AI Settings (⚙️) to chat with the tutor."; renderTutorMsgs(); return; }
+    tutor.busy = true; tutor.error = ""; renderTutorMsgs();
+    anthropicChat(tutor.system, tutor.messages.map(stripMsg), 1024).then(function (text) {
+      tutor.busy = false;
+      tutor.messages.push({ role: "assistant", content: text || "(no reply)" });
+      renderTutorMsgs();
+    }).catch(function (err) {
+      tutor.busy = false; tutor.error = err.message; renderTutorMsgs();
+    });
+  }
+
+  function openMcqTutor(m, chosenText, right, week) {
+    openTutor({
+      title: "Tutor — Week " + week + " MCQ",
+      system: tutorSystem("The student just answered a multiple-choice question (details in the first message). Start by explaining clearly why the correct answer is correct and, if the student was wrong, exactly why their choice is wrong — give the underlying reasoning and a memory hook. Then invite follow-up questions."),
+      messages: [{ role: "user", _hide: true, content:
+        "QUESTION: " + m.q + "\n\nOPTIONS:\n" + m.o.map(function (o, i) { return String.fromCharCode(65 + i) + ") " + o; }).join("\n") +
+        "\n\nThe CORRECT answer is: " + m.o[m.a] +
+        "\nI chose: " + chosenText + " (" + (right ? "correct" : "incorrect") + ")." +
+        "\nTextbook explanation: " + m.e +
+        "\n\nPlease tutor me on this question." }],
+      autoreply: true
+    });
+  }
+  function openLectureTutor(L) {
+    var topics = L.sections.map(function (s) { return s.h; }).join(", ");
+    openTutor({
+      title: "Tutor — Week " + L.week,
+      system: tutorSystem("The student is revising this week and wants help. This week (\"" + L.title + "\") covers: " + topics + ". Greet them warmly in one line and ask what they want to focus on."),
+      messages: [{ role: "user", _hide: true, content: "I'm revising Week " + L.week + " — " + L.title + ". Topics: " + topics + ". Greet me briefly and ask what I'd like help with." }],
+      autoreply: true
+    });
+  }
+  function openFeedbackTutor(L, key, payload) {
+    var fb = (lstate(L.id).aiFb || {})[key];
+    if (!fb) return;
+    var imgs = lastImages[L.id + ":" + key];
+    var ctx = (payload.kind === "case" ? "CASE: " + payload.scenario + "\n\n" : "") +
+      "QUESTION (" + payload.marks + " marks): " + payload.q + "\n\nMODEL ANSWER: " + payload.model +
+      "\n\nYOUR AI MARK — " + fb.score + "/" + fb.total + ". Correct: " + (fb.correct.join("; ") || "—") +
+      ". Missing: " + (fb.missing.join("; ") || "—") + ". Advice: " + fb.advice +
+      "\n\nHelp me understand the feedback and turn the missing points into full marks. Start by asking what I'd like to work on first.";
+    var content;
+    if (imgs && imgs.length) {
+      content = imgs.map(function (b) { return { type: "image", source: { type: "base64", media_type: "image/jpeg", data: b } }; });
+      content.push({ type: "text", text: "Here is my handwritten answer (photos above). " + ctx });
+    } else {
+      content = ctx;
+    }
+    openTutor({
+      title: "Tutor — discuss feedback",
+      system: tutorSystem("You already graded the student's handwritten answer. Coach them to improve: be specific about how to earn the missing marks, reference the model answer's frameworks by name, and stay supportive."),
+      messages: [{ role: "user", _hide: true, content: content }],
+      autoreply: true
     });
   }
 
