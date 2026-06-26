@@ -44,6 +44,28 @@
   }
   function pct(x) { return Math.round(x * 100); }
 
+  /* ---------------- difficulty tiers ---------------- */
+  var TIERS = [
+    { key: "easy",   label: "Easy",   sub: "Recall & definitions" },
+    { key: "medium", label: "Medium", sub: "Apply the concepts" },
+    { key: "hard",   label: "Hard",   sub: "Critical thinking" }
+  ];
+  function tierMeta(k) {
+    for (var i = 0; i < TIERS.length; i++) if (TIERS[i].key === k) return TIERS[i];
+    return { key: k, label: k || "Mixed", sub: "" };
+  }
+  function mcqIdxByTier(L, tier) {
+    var a = [];
+    for (var i = 0; i < L.mcqs.length; i++)
+      if (tier === "all" || L.mcqs[i].tier === tier) a.push(i);
+    return a;
+  }
+  function tierCounts(L) {
+    var c = { easy: 0, medium: 0, hard: 0 };
+    L.mcqs.forEach(function (m) { if (c[m.tier] != null) c[m.tier]++; });
+    return c;
+  }
+
   /* ---------------- progress model ----------------
      Each lecture has 3 components: MCQ done, cases done, essays done. */
   function caseQuestionCount(L) {
@@ -99,7 +121,10 @@
     if (parts[0] === "lecture") {
       var L = findLecture(parts[1]);
       if (!L) return renderHome();
-      if (parts[2] === "mcq") return startMcq(L, false);
+      if (parts[2] === "mcq") {
+        if (parts[3]) return startMcq(L, { tier: parts[3] });
+        return renderMcqPicker(L);
+      }
       if (parts[2] === "cases") return renderCases(L);
       if (parts[2] === "essays") return renderEssays(L);
       return renderLecture(L);
@@ -180,7 +205,7 @@
     html += '<p class="lead">' + esc(L.blurb) + "</p>";
 
     html += '<div class="quiz-launcher">';
-    html += '<button class="launch" data-go="#/lecture/' + L.id + '/mcq"><strong>📝 MCQ Quiz</strong><small>' + L.mcqs.length + " questions · " + (s.mcqBest != null ? "best " + s.mcqBest + "%" : "not attempted") + "</small></button>";
+    html += '<button class="launch" data-go="#/lecture/' + L.id + '/mcq"><strong>📝 MCQ Quiz</strong><small>' + L.mcqs.length + " Qs · Easy/Medium/Hard · " + (s.mcqBest != null ? "best " + s.mcqBest + "%" : "not attempted") + "</small></button>";
     html += '<button class="launch" data-go="#/lecture/' + L.id + '/cases"><strong>💼 Case Studies</strong><small>' + L.cases.length + " cases · " + caseDoneN + "/" + caseTotal + " answers revealed</small></button>";
     html += '<button class="launch" data-go="#/lecture/' + L.id + '/essays"><strong>✍️ Essay Questions</strong><small>' + L.essays.length + " questions · " + essayN + "/" + L.essays.length + " reviewed</small></button>";
     html += "</div>";
@@ -201,94 +226,156 @@
       btn.addEventListener("click", function () { location.hash = btn.getAttribute("data-go"); });
     });
     var rw = document.getElementById("retryWrongBtn");
-    if (rw) rw.addEventListener("click", function () { startMcq(L, true); });
+    if (rw) rw.addEventListener("click", function () { startMcq(L, { wrongOnly: true }); });
+  }
+
+  /* ---------------- MCQ tier picker ---------------- */
+  function renderMcqPicker(L) {
+    var s = lstate(L.id);
+    var tc = tierCounts(L);
+    var html = '<a class="back-link" href="#/lecture/' + L.id + '">← ' + esc(L.title) + "</a>";
+    html += "<h1>MCQ Quiz — Week " + L.week + "</h1>";
+    html += '<p class="lead">Pick a difficulty tier, or take the full mixed set. Get one wrong and you\'ll see a hint aimed at <em>your</em> answer and a second chance — before the solution is revealed.</p>';
+    html += '<div class="quiz-launcher">';
+    TIERS.forEach(function (t) {
+      html += '<button class="launch" data-go="#/lecture/' + L.id + "/mcq/" + t.key + '">';
+      html += '<span class="pill ' + t.key + '">' + esc(t.label) + "</span>";
+      html += "<strong>" + tc[t.key] + " questions</strong><small>" + esc(t.sub) + "</small></button>";
+    });
+    html += '<button class="launch" data-go="#/lecture/' + L.id + '/mcq/all"><span class="pill gray">All</span><strong>' + L.mcqs.length + " questions</strong><small>Full mixed set</small></button>";
+    html += "</div>";
+    if (s.mcqBest != null) html += '<p class="small muted">Best score so far: ' + s.mcqBest + "%</p>";
+    if (s.mcqWrong && s.mcqWrong.length) {
+      html += '<div class="btn-row"><button class="btn small" id="retryWrongBtn">↻ Retry my ' + s.mcqWrong.length + " missed questions</button></div>";
+    }
+    app.innerHTML = html;
+    app.querySelectorAll("[data-go]").forEach(function (b) {
+      b.addEventListener("click", function () { location.hash = b.getAttribute("data-go"); });
+    });
+    var rw = document.getElementById("retryWrongBtn");
+    if (rw) rw.addEventListener("click", function () { startMcq(L, { wrongOnly: true }); });
   }
 
   /* ---------------- MCQ engine ----------------
      quiz.items = [{L, qi}] ; options shuffled per question. */
   var quiz = null;
 
-  function startMcq(L, wrongOnly) {
+  function startMcq(L, opts) {
+    opts = opts || {};
+    var wrongOnly = !!opts.wrongOnly;
+    var tier = opts.tier || "all";
     var idxs = [];
     if (wrongOnly) {
       idxs = (lstate(L.id).mcqWrong || []).slice();
       if (!idxs.length) { location.hash = "#/lecture/" + L.id + "/mcq"; return; }
     } else {
-      for (var i = 0; i < L.mcqs.length; i++) idxs.push(i);
+      idxs = mcqIdxByTier(L, tier);
+      if (!idxs.length) { location.hash = "#/lecture/" + L.id + "/mcq"; return; }
     }
+    idxs = shuffle(idxs);
     quiz = {
       mode: wrongOnly ? "wrong" : "full",
+      tier: wrongOnly ? "all" : tier,
       lecture: L,
       items: idxs.map(function (qi) { return { L: L, qi: qi }; }),
       i: 0, correct: 0, wrong: [],
-      backHash: "#/lecture/" + L.id
+      backHash: wrongOnly ? ("#/lecture/" + L.id) : ("#/lecture/" + L.id + "/mcq")
     };
     renderQuestion();
   }
 
-  function startFinal(count) {
+  function startFinal(count, tier) {
+    tier = tier || "all";
     var pool = [];
     COURSE.lectures.forEach(function (L) {
-      L.mcqs.forEach(function (m, qi) { pool.push({ L: L, qi: qi }); });
+      L.mcqs.forEach(function (m, qi) { if (tier === "all" || m.tier === tier) pool.push({ L: L, qi: qi }); });
     });
     pool = shuffle(pool);
     if (count !== "all") pool = pool.slice(0, count);
     quiz = {
-      mode: "final", lecture: null,
+      mode: "final", lecture: null, tier: tier,
       items: pool, i: 0, correct: 0, wrong: [],
       backHash: "#/final"
     };
     renderQuestion();
   }
 
+  /* Per-question flow: a wrong pick reveals a hint targeted at THAT option and
+     lets the student try again; the full explanation is shown only after they
+     get it right or tap "Show me the answer". First-try-correct counts for score. */
   function renderQuestion() {
     var item = quiz.items[quiz.i];
     var m = item.L.mcqs[item.qi];
     var order = shuffle([0, 1, 2, 3]);
-    var title = quiz.mode === "final" ? "Final Exam" :
-      (quiz.mode === "wrong" ? "Retry — Week " + item.L.week : "Week " + item.L.week + " MCQ Quiz");
+    var tm = tierMeta(m.tier);
+    var heading = quiz.mode === "final" ? "Final Exam" :
+      ((quiz.mode === "wrong" || quiz.mode === "final-review") ? "Retry" : "Week " + item.L.week + " MCQ");
     var html = '<a class="back-link" href="' + quiz.backHash + '">← Exit quiz</a>';
-    html += '<div class="quiz-head"><h1 style="margin:0;font-size:1.15rem">' + esc(title) + "</h1>";
+    html += '<div class="quiz-head"><h1 style="margin:0;font-size:1.15rem">' + esc(heading) + "</h1>";
     html += '<span class="pill gray">Q ' + (quiz.i + 1) + " / " + quiz.items.length + "</span></div>";
     html += '<div class="progress-track"><div class="progress-fill" style="width:' + pct(quiz.i / quiz.items.length) + '%"></div></div>';
     html += '<div class="card" style="margin-top:14px">';
+    html += '<span class="pill ' + esc(m.tier || "gray") + '">' + esc(tm.label) + "</span>";
     html += '<p class="q-text">' + esc(m.q) + "</p>";
     html += '<div class="opts">';
     order.forEach(function (oi) {
       html += '<button class="opt" data-oi="' + oi + '">' + esc(m.o[oi]) + "</button>";
     });
-    html += '</div><div id="explainSlot"></div></div>';
+    html += '</div><div id="hintSlot"></div><div id="explainSlot"></div></div>';
     app.innerHTML = html;
 
-    var answered = false;
+    var missed = false;   // any wrong attempt on this question
+    var resolved = false; // answer fully revealed
+
+    function reveal(gaveUp) {
+      resolved = true;
+      app.querySelectorAll(".opt").forEach(function (b) {
+        var oi = parseInt(b.getAttribute("data-oi"), 10);
+        b.setAttribute("disabled", "disabled");
+        if (oi === m.a) b.classList.add("correct");
+        else if (!b.classList.contains("wrong")) b.classList.add("dim");
+      });
+      document.getElementById("hintSlot").innerHTML = "";
+      var ok = !missed;
+      var ex = '<div class="explain">';
+      ex += '<span class="verdict ' + (ok ? "ok" : "no") + '">' + (ok ? "✓ Correct" : (gaveUp ? "Here’s the answer" : "✓ Got there in the end")) + "</span>";
+      ex += esc(m.e);
+      if (quiz.mode === "final" || quiz.mode === "final-review")
+        ex += '<span class="src-tag">From Week ' + item.L.week + " — " + esc(item.L.title) + "</span>";
+      ex += "</div>";
+      ex += '<div class="btn-row"><button class="btn primary" id="nextBtn">' + (quiz.i + 1 < quiz.items.length ? "Next question →" : "See results") + "</button></div>";
+      document.getElementById("explainSlot").innerHTML = ex;
+      var nb = document.getElementById("nextBtn");
+      nb.addEventListener("click", function () {
+        quiz.i++;
+        if (quiz.i < quiz.items.length) renderQuestion();
+        else renderResults();
+      });
+      nb.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+
     app.querySelectorAll(".opt").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        if (answered) return;
-        answered = true;
+        if (resolved || btn.classList.contains("wrong")) return;
         var chosen = parseInt(btn.getAttribute("data-oi"), 10);
-        var right = chosen === m.a;
-        if (right) quiz.correct++;
-        else quiz.wrong.push(item);
-        app.querySelectorAll(".opt").forEach(function (b) {
-          var oi = parseInt(b.getAttribute("data-oi"), 10);
-          b.setAttribute("disabled", "disabled");
-          if (oi === m.a) b.classList.add("correct");
-          else if (oi === chosen) b.classList.add("wrong");
-          else b.classList.add("dim");
-        });
-        var ex = '<div class="explain">';
-        ex += '<span class="verdict ' + (right ? "ok" : "no") + '">' + (right ? "✓ Correct" : "✗ Not quite") + "</span>";
-        ex += esc(m.e);
-        if (quiz.mode === "final") ex += '<span class="src-tag">From Week ' + item.L.week + " — " + esc(item.L.title) + "</span>";
-        ex += "</div>";
-        ex += '<div class="btn-row"><button class="btn primary" id="nextBtn">' + (quiz.i + 1 < quiz.items.length ? "Next question →" : "See results") + "</button></div>";
-        document.getElementById("explainSlot").innerHTML = ex;
-        document.getElementById("nextBtn").addEventListener("click", function () {
-          quiz.i++;
-          if (quiz.i < quiz.items.length) renderQuestion();
-          else renderResults();
-        });
-        document.getElementById("nextBtn").scrollIntoView({ block: "nearest", behavior: "smooth" });
+        if (chosen === m.a) {
+          if (!missed) quiz.correct++;
+          btn.classList.add("correct");
+          reveal(false);
+          return;
+        }
+        // wrong pick — coach, don't reveal yet
+        if (!missed) quiz.wrong.push(item);
+        missed = true;
+        btn.classList.add("wrong");
+        btn.setAttribute("disabled", "disabled");
+        var hintText = (m.h && m.h[chosen]) ? m.h[chosen] : "Not quite — re-read the question and weigh the remaining options.";
+        var hh = '<div class="hint"><span class="hint-label">💡 Rethink that</span>' + esc(hintText) + "</div>";
+        hh += '<div class="btn-row"><button class="btn small ghost" id="giveUpBtn">Show me the answer</button>' +
+              '<span class="small muted" style="align-self:center">…or try another option</span></div>';
+        document.getElementById("hintSlot").innerHTML = hh;
+        document.getElementById("giveUpBtn").addEventListener("click", function () { reveal(true); });
+        document.getElementById("hintSlot").scrollIntoView({ block: "nearest", behavior: "smooth" });
       });
     });
   }
@@ -329,7 +416,8 @@
       html += '<div class="card"><h3>Review your wrong answers</h3>';
       quiz.wrong.forEach(function (it) {
         var m = it.L.mcqs[it.qi];
-        html += '<div class="review-item"><strong>' + esc(m.q) + "</strong><br>";
+        html += '<div class="review-item"><span class="pill ' + esc(m.tier || "gray") + '" style="margin-bottom:6px">' + esc(tierMeta(m.tier).label) + "</span><br>";
+        html += "<strong>" + esc(m.q) + "</strong><br>";
         html += '<span class="muted">Answer: </span>' + esc(m.o[m.a]) + "<br>";
         html += '<span class="muted small">' + esc(m.e) + "</span></div>";
       });
@@ -434,25 +522,39 @@
     html += '<p class="lead">Random MCQs mixed from all 12 lectures (' + total + " in the bank). Each answer shows an explanation and its source week.</p>";
     if (store.finalBest != null) html += '<p><span class="pill green">Best so far: ' + store.finalBest + "%</span></p>";
     html += '<div class="card"><h3>How many questions?</h3>';
-    html += '<div class="choice-row">';
+    html += '<div class="choice-row" id="countRow">';
     html += '<button class="choice sel" data-n="20">20</button>';
     html += '<button class="choice" data-n="40">40</button>';
     html += '<button class="choice" data-n="60">60</button>';
     html += '<button class="choice" data-n="all">All ' + total + "</button>";
     html += "</div>";
+    html += '<h3 style="margin-top:18px">Difficulty</h3>';
+    html += '<div class="choice-row" id="tierRow">';
+    html += '<button class="choice sel" data-t="all">All tiers</button>';
+    TIERS.forEach(function (t) {
+      html += '<button class="choice" data-t="' + t.key + '">' + esc(t.label) + "</button>";
+    });
+    html += "</div>";
     html += '<div class="btn-row"><button class="btn primary" id="startFinal">Start final exam</button></div>';
     html += "</div>";
     app.innerHTML = html;
-    var sel = "20";
-    app.querySelectorAll(".choice").forEach(function (c) {
+    var sel = "20", tierSel = "all";
+    document.getElementById("countRow").querySelectorAll(".choice").forEach(function (c) {
       c.addEventListener("click", function () {
-        app.querySelectorAll(".choice").forEach(function (x) { x.classList.remove("sel"); });
+        document.getElementById("countRow").querySelectorAll(".choice").forEach(function (x) { x.classList.remove("sel"); });
         c.classList.add("sel");
         sel = c.getAttribute("data-n");
       });
     });
+    document.getElementById("tierRow").querySelectorAll(".choice").forEach(function (c) {
+      c.addEventListener("click", function () {
+        document.getElementById("tierRow").querySelectorAll(".choice").forEach(function (x) { x.classList.remove("sel"); });
+        c.classList.add("sel");
+        tierSel = c.getAttribute("data-t");
+      });
+    });
     document.getElementById("startFinal").addEventListener("click", function () {
-      startFinal(sel === "all" ? "all" : parseInt(sel, 10));
+      startFinal(sel === "all" ? "all" : parseInt(sel, 10), tierSel);
     });
   }
 
