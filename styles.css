@@ -286,6 +286,39 @@ table.tbl th { background: var(--card-2); }
 .check-explain .verdict.ok { color: var(--good); }
 .check-explain .verdict.no { color: var(--bad); }
 
+/* ---------- AI grading (free-text answers) ---------- */
+.ai-grade {
+  margin-top: 12px; padding: 14px 16px; border-radius: 12px;
+  background: var(--card-2); border: 1px solid var(--line);
+}
+.ai-input {
+  width: 100%; resize: vertical; min-height: 84px;
+  padding: 11px 14px; border-radius: 10px;
+  border: 1.5px solid var(--line); background: var(--card); color: var(--text);
+  font: inherit; font-size: .95rem; line-height: 1.5;
+}
+.ai-input:focus { outline: none; border-color: var(--accent); }
+.ai-msg { margin-top: 10px; font-size: .9rem; color: var(--muted); }
+.ai-msg.bad { color: var(--bad); }
+.ai-result {
+  margin-top: 12px; padding: 14px 16px; border-radius: 12px;
+  background: var(--card); border: 1px solid var(--line);
+}
+.ai-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.ai-score {
+  font-size: 1.6rem; font-weight: 800; line-height: 1;
+  padding: 8px 12px; border-radius: 12px; white-space: nowrap;
+}
+.ai-score small { font-size: .8rem; font-weight: 600; opacity: .7; }
+.ai-score.good { background: var(--good-soft); color: var(--good); }
+.ai-score.mid { background: var(--warn-soft); color: #9a6a00; }
+.ai-score.low { background: var(--bad-soft); color: var(--bad); }
+.ai-verdict { font-weight: 650; }
+.ai-label { font-weight: 800; font-size: .76rem; text-transform: uppercase; letter-spacing: .04em; margin: 10px 0 2px; }
+.ai-label.good { color: var(--good); }
+.ai-label.warn { color: #9a6a00; }
+.ai-fb { font-size: .92rem; margin: 10px 0 0; }
+
 /* ---------- cases & essays ---------- */
 .scenario { background: var(--card-2); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 10px 0 16px; font-size: .94rem; }
 .case-q { border-top: 1px solid var(--line); padding: 14px 0; }

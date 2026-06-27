@@ -65,6 +65,113 @@
       .replace(/\s+/g, " ");
   }
 
+  /* ---------------- AI grading (free-text answers) ----------------
+     Essays and case-study answers can't be auto-checked by exact match, so we
+     ask Claude to grade the student's typed answer against the model answer.
+     Static site → no backend → the student supplies their own Anthropic API
+     key (kept only in this browser, sent directly to api.anthropic.com). */
+  var AI_KEY_LS = "mngt215_anthropic_key";
+  function aiGetKey() { try { return localStorage.getItem(AI_KEY_LS) || ""; } catch (e) { return ""; } }
+  function aiSetKey(k) { try { if (k) localStorage.setItem(AI_KEY_LS, k); else localStorage.removeItem(AI_KEY_LS); } catch (e) { /* private mode */ } }
+  function aiEnsureKey() {
+    var k = aiGetKey();
+    if (!k) {
+      k = window.prompt("Paste your Anthropic API key to enable AI grading.\n\nIt starts with \"sk-ant-\", is stored only in this browser, and is sent directly to Anthropic — never to this site.");
+      if (k) { k = k.trim(); aiSetKey(k); }
+    }
+    return k;
+  }
+
+  var AI_SCHEMA = {
+    type: "object", additionalProperties: false,
+    required: ["score", "verdict", "strengths", "missing", "feedback"],
+    properties: {
+      score: { type: "integer" },
+      verdict: { type: "string" },
+      strengths: { type: "array", items: { type: "string" } },
+      missing: { type: "array", items: { type: "string" } },
+      feedback: { type: "string" }
+    }
+  };
+
+  function aiGrade(ctx, answer, slot, btn) {
+    var key = aiEnsureKey();
+    if (!key) { slot.innerHTML = '<div class="ai-msg">AI grading needs your Anthropic API key.</div>'; return; }
+    slot.innerHTML = '<div class="ai-msg">⏳ Grading your answer…</div>';
+    if (btn) btn.setAttribute("disabled", "disabled");
+
+    var sys = "You are a fair, encouraging examiner for MNGT 215 (Fundamentals of Management & Organizational Behavior, Robbins/Coulter). Grade the student's answer on conceptual understanding and correct application of management theory — NOT on matching the model answer word for word. Reward correct ideas expressed in the student's own words. Be specific, honest, and constructive.";
+    var msg = "This is an exam " + ctx.kind + ". Compare the student's answer to the model answer and grade it.\n\n" +
+      "QUESTION:\n" + ctx.question + "\n\n" +
+      (ctx.outline && ctx.outline.length ? "KEY POINTS A GRADER LOOKS FOR:\n- " + ctx.outline.join("\n- ") + "\n\n" : "") +
+      "MODEL ANSWER:\n" + ctx.model + "\n\n" +
+      "STUDENT'S ANSWER:\n" + answer + "\n\n" +
+      "Return: score (0-100), a one-line verdict, what they got right (strengths), what is missing or wrong (missing), and a short paragraph of constructive feedback.";
+
+    fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-api-key": key,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
+      },
+      body: JSON.stringify({
+        model: "claude-opus-4-8",
+        max_tokens: 1024,
+        system: sys,
+        messages: [{ role: "user", content: msg }],
+        output_config: { format: { type: "json_schema", schema: AI_SCHEMA } }
+      })
+    }).then(function (r) {
+      return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; });
+    }).then(function (res) {
+      if (btn) btn.removeAttribute("disabled");
+      if (!res.ok) {
+        var em = (res.j && res.j.error && res.j.error.message) ? res.j.error.message : ("HTTP " + res.status);
+        if (res.status === 401) { aiSetKey(""); em = "That API key was rejected — it has been cleared. Tap the button to enter a valid key."; }
+        slot.innerHTML = '<div class="ai-msg bad">⚠️ ' + esc(em) + "</div>";
+        return;
+      }
+      var txt = "";
+      (res.j.content || []).forEach(function (b) { if (b.type === "text") txt += b.text; });
+      var data; try { data = JSON.parse(txt); } catch (e) { slot.innerHTML = '<div class="ai-msg">' + esc(txt || "No response.") + "</div>"; return; }
+      slot.innerHTML = aiGradeHtml(data);
+    }).catch(function (e) {
+      if (btn) btn.removeAttribute("disabled");
+      slot.innerHTML = '<div class="ai-msg bad">⚠️ Could not reach the grading service: ' + esc(e.message) + "</div>";
+    });
+  }
+
+  function aiGradeHtml(d) {
+    var score = Math.max(0, Math.min(100, parseInt(d.score, 10) || 0));
+    var cls = score >= 80 ? "good" : (score >= 50 ? "mid" : "low");
+    var h = '<div class="ai-result">';
+    h += '<div class="ai-head"><span class="ai-score ' + cls + '">' + score + "<small>/100</small></span>";
+    h += '<span class="ai-verdict">' + esc(d.verdict || "") + "</span></div>";
+    if (d.strengths && d.strengths.length) {
+      h += '<p class="ai-label good">✓ What you got right</p><ul class="clean">';
+      d.strengths.forEach(function (s) { h += "<li>" + esc(s) + "</li>"; });
+      h += "</ul>";
+    }
+    if (d.missing && d.missing.length) {
+      h += '<p class="ai-label warn">△ Missing or to fix</p><ul class="clean">';
+      d.missing.forEach(function (s) { h += "<li>" + esc(s) + "</li>"; });
+      h += "</ul>";
+    }
+    if (d.feedback) h += '<p class="ai-fb">' + esc(d.feedback) + "</p>";
+    h += '<p class="small muted" style="margin:8px 0 0">AI-generated feedback — use it as guidance, not an official grade.</p>';
+    h += "</div>";
+    return h;
+  }
+
+  function aiBlockHtml(attrs) {
+    return '<div class="ai-grade">' +
+      '<textarea class="ai-input" rows="4" placeholder="Write your own answer here, then have AI check it against the model answer…"></textarea>' +
+      '<div class="btn-row" style="margin-top:8px"><button class="btn small ai-btn" ' + attrs + '>✨ Check my answer with AI</button></div>' +
+      '<div class="ai-slot"></div></div>';
+  }
+
   /* ---------------- difficulty tiers ---------------- */
   var TIERS = [
     { key: "easy",   label: "Easy",   sub: "Recall & definitions", emoji: "🟢" },
@@ -114,6 +221,14 @@
     save(); applyTheme();
   });
   applyTheme();
+
+  /* ---------------- AI key management (footer) ---------------- */
+  var aiKeyBtn = document.getElementById("aiKeyBtn");
+  if (aiKeyBtn) aiKeyBtn.addEventListener("click", function () {
+    var has = !!aiGetKey();
+    if (has && window.confirm("An AI grading key is set on this device. Remove it?")) { aiSetKey(""); window.alert("AI grading key removed."); return; }
+    if (!has) aiEnsureKey();
+  });
 
   /* ---------------- timer ---------------- */
   var quiz = null;
@@ -481,7 +596,9 @@
         html += '<div id="ca-' + ci + "-" + qi + '">';
         if (quiz.casesRevealed[ci + "-" + qi]) html += modelAnswerHtml(q.a);
         else html += '<button class="btn small" data-ci="' + ci + '" data-qi="' + qi + '">Reveal model answer</button>';
-        html += "</div></div>";
+        html += "</div>";
+        html += aiBlockHtml('data-aci="' + ci + '" data-aqi="' + qi + '"');
+        html += "</div>";
       });
       html += "</div>";
     });
@@ -493,6 +610,17 @@
         var ci = parseInt(btn.getAttribute("data-ci"), 10), qi = parseInt(btn.getAttribute("data-qi"), 10);
         quiz.casesRevealed[ci + "-" + qi] = true;
         document.getElementById("ca-" + ci + "-" + qi).innerHTML = modelAnswerHtml(quiz.cases[ci].qs[qi].a);
+      });
+    });
+    app.querySelectorAll(".ai-btn[data-aci]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var box = btn.closest(".ai-grade");
+        var ci = parseInt(btn.getAttribute("data-aci"), 10), qi = parseInt(btn.getAttribute("data-aqi"), 10);
+        var q = quiz.cases[ci].qs[qi];
+        var ans = (box.querySelector(".ai-input").value || "").trim();
+        var slot = box.querySelector(".ai-slot");
+        if (!ans) { slot.innerHTML = '<div class="ai-msg">Write your answer above first.</div>'; return; }
+        aiGrade({ kind: "case-study question", question: q.q, model: q.a }, ans, slot, btn);
       });
     });
     document.getElementById("toEssay").addEventListener("click", function () { quiz.stage = "essay"; renderExam(); });
@@ -508,13 +636,22 @@
     html += '<p class="lead" style="margin-top:14px">Plan and write your answer, then open the outline to check it against what a grader looks for.</p>';
     html += '<div class="card"><span class="pill">Essay</span>';
     html += '<p class="q-text">' + esc(e.q) + "</p>";
-    html += '<div id="essayBody"><button class="btn small" id="showEssay">Show model answer outline</button></div>';
+    html += aiBlockHtml('id="essayAiBtn"');
+    html += '<div id="essayBody" style="margin-top:14px"><button class="btn small" id="showEssay">Show model answer outline</button></div>';
     html += "</div>";
     html += '<div class="btn-row"><button class="btn primary" id="toResults">Finish &amp; see results →</button></div>';
     app.innerHTML = html;
     app.querySelector(".back-link").addEventListener("click", clearTimer);
     document.getElementById("showEssay").addEventListener("click", function () {
       document.getElementById("essayBody").innerHTML = essayBodyHtml(e);
+    });
+    document.getElementById("essayAiBtn").addEventListener("click", function () {
+      var btn = document.getElementById("essayAiBtn");
+      var box = btn.closest(".ai-grade");
+      var ans = (box.querySelector(".ai-input").value || "").trim();
+      var slot = box.querySelector(".ai-slot");
+      if (!ans) { slot.innerHTML = '<div class="ai-msg">Write your essay above first.</div>'; return; }
+      aiGrade({ kind: "essay question", question: e.q, model: e.model, outline: e.outline }, ans, slot, btn);
     });
     document.getElementById("toResults").addEventListener("click", function () { quiz.stage = "results"; renderExam(); });
   }
