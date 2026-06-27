@@ -240,6 +240,52 @@ table.tbl th { background: var(--card-2); }
 .review-item { border-top: 1px solid var(--line); padding: 10px 0; font-size: .9rem; }
 .review-item:first-of-type { border-top: none; }
 
+/* ---------- exam bar & timer ---------- */
+.exam-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin: 8px 0 12px; padding: 10px 14px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+}
+.exam-bar-l { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.exam-timer {
+  font-variant-numeric: tabular-nums; font-weight: 800; font-size: 1rem;
+  padding: 6px 12px; border-radius: 999px;
+  background: var(--good-soft); color: var(--good); white-space: nowrap;
+}
+.exam-timer.low { background: var(--bad-soft); color: var(--bad); animation: pulse 1s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity: .55; } }
+
+/* ---------- fill-in-the-blank ---------- */
+.fill-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: stretch; }
+.fill-input {
+  flex: 1 1 220px; min-height: 52px; padding: 12px 16px;
+  border: 1.5px solid var(--line); border-radius: 12px;
+  background: var(--card); color: var(--text); font-size: 1rem;
+}
+.fill-input:focus { outline: none; border-color: var(--accent); }
+.fill-input.ok { border-color: var(--good); background: var(--good-soft); }
+.fill-input.bad { border-color: var(--bad); background: var(--bad-soft); }
+
+/* ---------- inline "check yourself" ---------- */
+.inline-check {
+  margin: 4px 0 14px; padding: 14px 16px; border-radius: 12px;
+  background: var(--card-2); border: 1px dashed color-mix(in srgb, var(--accent) 40%, var(--line));
+}
+.check-label {
+  display: block; font-weight: 800; font-size: .72rem; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 6px;
+}
+.check-q { font-weight: 650; margin: 0 0 10px; }
+.check-opts { display: flex; flex-direction: column; gap: 8px; }
+.check-opts .opt { min-height: 44px; padding: 10px 14px; }
+.check-explain:not(:empty) {
+  margin-top: 10px; padding: 10px 14px; border-radius: 10px;
+  background: var(--card); border: 1px solid var(--line); font-size: .88rem;
+}
+.check-explain .verdict { font-weight: 800; display: block; margin-bottom: 3px; }
+.check-explain .verdict.ok { color: var(--good); }
+.check-explain .verdict.no { color: var(--bad); }
+
 /* ---------- cases & essays ---------- */
 .scenario { background: var(--card-2); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; margin: 10px 0 16px; font-size: .94rem; }
 .case-q { border-top: 1px solid var(--line); padding: 14px 0; }
