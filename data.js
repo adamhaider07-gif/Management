@@ -486,6 +486,24 @@ window.COURSE = {
             "Entrepreneur is about initiating new projects, not resolving a crisis; resource allocator is not about bargaining a contract. These two roles miss both acts."
           ],
           e: "Resolving an unexpected dispute that threatens operations is the disturbance handler role; bargaining a long-term contract is the negotiator role — both decisional roles, in that order."
+        },
+        {
+          q: "A two-person startup founder says, \"We're too small to bother with management — management is only for big corporations.\" Which response BEST reflects the lecture's view?",
+          o: [
+            "Agree — the management functions only apply once an organization has several layers of hierarchy",
+            "Disagree — management (planning, organizing, leading, controlling) is universal: any deliberate arrangement of people pursuing a purpose must be coordinated, whatever its size",
+            "Agree — a startup needs leading, but not the other three functions until it grows",
+            "Disagree, but only because the founder will eventually hire managers, not because management applies now"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "The lecture stresses the universality of management — the functions apply to small and large, profit and non-profit alike, not only to tall hierarchies.",
+            "Right idea — that's the one.",
+            "Leading cannot be separated from planning, organizing, and controlling; even a two-person venture sets goals, divides work, and tracks results.",
+            "The point isn't future hiring — the founders are ALREADY managing now; the need exists from day one."
+          ],
+          e: "Management is universal: the four functions (planning, organizing, leading, controlling) are needed in organizations of every size and type, because any deliberate arrangement of people pursuing a shared purpose must be coordinated. The founders are already managing, regardless of headcount."
         }
       ],
       cases: [
@@ -1138,6 +1156,24 @@ window.COURSE = {
             "The satisfied-worker claim is the human relations belief, the opposite of these classical schools."
           ],
           e: "Taylor's scientific management (task efficiency, one best way) and Weber's bureaucracy (rules, hierarchy, impersonality) are both part of the classical approach, which emphasized rationality and efficiency. The social-person approaches and the Hawthorne Studies later showed they overlooked the organization's human and social factors, such as attitudes and group standards."
+        },
+        {
+          q: "A hospital optimizes its emergency room alone — faster triage, more ER staff — yet patient outcomes worsen because the lab, pharmacy, and wards were ignored and now bottleneck. Which approach BEST explains this failure?",
+          o: [
+            "Scientific management — the ER simply needs more time-and-motion study",
+            "The systems approach — the organization is a set of interdependent parts, so optimizing one subsystem in isolation can harm the whole",
+            "The general administrative approach — the ER violated unity of command",
+            "The quantitative approach — the ER lacked enough linear-programming models"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "Adding time-and-motion study to one unit ignores the real issue: the units are interdependent. Think about the whole, not one part.",
+            "Right idea — that's the one.",
+            "Unity of command is about reporting to a single boss; it doesn't explain why improving one unit hurt the others.",
+            "More math models for the ER alone repeats the very mistake — optimizing a part in isolation. The issue is interdependence, not technique."
+          ],
+          e: "The systems approach views an organization as a set of interrelated, interdependent parts (subsystems). Improving one subsystem (the ER) while ignoring the others can degrade overall performance, because a change in one part affects the whole — exactly what happened when the lab, pharmacy, and wards bottlenecked."
         }
       ],
       cases: [
@@ -1736,6 +1772,24 @@ window.COURSE = {
             "Culture is shaped internally regardless of external conditions; waiting for stability ignores how culture is actually maintained."
           ],
           e: "Culture is maintained by top managers' actions and organizational practices (selection, socialization) and transmitted via stories, rituals, symbols, and language — not by posters alone."
+        },
+        {
+          q: "After a great year a CEO credits her own brilliant decisions for ALL the success; after a bad year she blames only the economy. Using the omnipotent and symbolic views, the BEST critique is that…",
+          o: [
+            "she is right both times — managers control good years and the environment controls bad years",
+            "she inconsistently switches views to flatter herself; the lecture holds managerial influence lies between the extremes — constrained by external forces in good and bad years alike",
+            "she should adopt the purely symbolic view, since managers have no real effect on outcomes",
+            "she should adopt the purely omnipotent view, since external forces are merely excuses"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "She can't have it both ways — taking all the credit but none of the blame. The lecture rejects both pure extremes.",
+            "Right idea — that's the one.",
+            "The purely symbolic view (managers don't matter) is as one-sided as pure omnipotence; reality sits in between.",
+            "The purely omnipotent view ignores genuine external constraints — the lecture says managers are constrained, not all-powerful."
+          ],
+          e: "The omnipotent view credits managers for outcomes; the symbolic view credits external forces. The lecture's balanced position is that real managerial influence lies between the two — managers are constrained by environmental forces in both good and bad years. Selectively switching views to claim credit and dodge blame misapplies both."
         }
       ],
       cases: [
@@ -2254,6 +2308,24 @@ window.COURSE = {
             "Competitive advantages CAN be imitated; that is exactly why the moat concept exists. Reconsider the assumption of permanence."
           ],
           e: "Developing a competitive advantage is only half the task; firms must SUSTAIN it behind an economic moat (Buffett), because rivals and imitators can erode an unprotected edge. No advantage is automatically permanent."
+        },
+        {
+          q: "A solar firm has a unique low-cost panel-import channel (a real strength) and faces fast-growing off-grid demand (an opportunity), but also a looming import-licensing crackdown (a threat). A manager says, \"Strengths and opportunities are the same thing, so we really have just one advantage.\" Which BEST corrects this using SWOT?",
+          o: [
+            "Correct — in SWOT, internal strengths and external opportunities are merged into a single factor",
+            "Wrong — strengths/weaknesses are INTERNAL to the firm while opportunities/threats are EXTERNAL; strategy works by matching an internal strength to an external opportunity, not conflating them",
+            "Wrong — opportunities are internal and strengths are external",
+            "Correct — once a firm has a strength, the opportunity is irrelevant"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "SWOT keeps internal and external factors separate on purpose; merging them loses the whole point of the analysis.",
+            "Right idea — that's the one.",
+            "You have it backwards — strengths are internal, opportunities are external. Re-check the SWOT axes.",
+            "The opportunity (growing off-grid demand) is exactly what makes the strength valuable — it is not irrelevant."
+          ],
+          e: "In SWOT analysis, strengths and weaknesses are INTERNAL (the firm's own resources and capabilities) while opportunities and threats are EXTERNAL (in the environment). Strategy works by matching internal strengths to external opportunities while defending against threats, so the two cannot be collapsed into a single factor."
         }
       ],
       cases: [
@@ -2899,6 +2971,24 @@ window.COURSE = {
             "Bounded rationality describes processing limits and leads to satisficing, not an optimal decision — and the statement is about intuition, not bounded rationality. Reconsider."
           ],
           e: "Intuition (experience-, affect-, cognitive-, and values-based judgment) is a real and useful basis for decisions, but unchecked it invites biases such as overconfidence and confirmation. Evidence-based management corrects for this by combining the manager's judgment with evaluated external evidence, stakeholders' values, and organizational context."
+        },
+        {
+          q: "A firm has poured two years and huge sums into a failing software project. The lead argues, \"We've invested too much to stop now.\" A consultant calls this a classic decision error. Which bias is at work, and which rational principle is violated?",
+          o: [
+            "Anchoring bias — the team is stuck on its first estimate and should simply re-anchor on a new number",
+            "Escalation of commitment — throwing good resources after bad to justify past choices; the violated principle is that sunk (unrecoverable) costs should be ignored and the decision judged only on future costs and benefits",
+            "Availability bias — the team recalls vivid recent failures and should gather more memorable cases",
+            "Overconfidence — the team overrates its skill and should simply work harder on the same project"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "Anchoring is fixating on an initial numeric estimate; here the issue is refusing to abandon a sinking project, not a number.",
+            "Right idea — that's the one.",
+            "Availability is judging by what comes easily to mind; that is not what 'we've invested too much to quit' describes.",
+            "'Work harder on the same project' is the trap itself — the rational move is to judge the project on its FUTURE prospects, ignoring sunk cost."
+          ],
+          e: "Escalation of commitment is the tendency to increase commitment to a prior decision despite evidence it is failing, in order to justify past investment. The principle violated is that sunk costs — past, unrecoverable expenditures — are irrelevant to a forward-looking decision, which should weigh only future costs and benefits."
         }
       ],
       cases: [
@@ -3488,6 +3578,24 @@ window.COURSE = {
             "A simple structure is a tiny owner-run firm; it does not address ongoing, project-based professional work."
           ],
           e: "When employees continuously work on projects, the project structure fits best — and unlike the matrix it has no dual functional/project reporting, removing the two-boss strain."
+        },
+        {
+          q: "A factory keeps narrowing each worker's task to a single repetitive motion, expecting output to keep rising. Instead boredom, absenteeism, and errors climb and productivity falls. Using the lecture on work specialization, the BEST diagnosis is that…",
+          o: [
+            "work specialization always lowers productivity, so the firm should abolish all division of labor",
+            "specialization raises efficiency up to a point, but beyond it the human diseconomies (boredom, fatigue, stress, poor quality, turnover) outweigh the gains — the firm has pushed past that point",
+            "the problem is too little formalization; more written rules would fix the boredom",
+            "the problem is too wide a span of control; adding supervisors would restore output"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "The lecture doesn't reject specialization outright — early on it DOES raise efficiency. The issue is overdoing it.",
+            "Right idea — that's the one.",
+            "More written rules (formalization) won't cure boredom from an over-narrow task; the cause is the specialization itself.",
+            "Span of control is about how many people report to a manager — it doesn't explain boredom from repetitive single-motion work."
+          ],
+          e: "Work specialization increases efficiency at first, but past a certain point the human diseconomies — boredom, fatigue, stress, poor quality, absenteeism, and turnover — overwhelm the efficiency gains. The factory has pushed specialization beyond the point where it still pays, which is why productivity is now falling."
         }
       ],
       cases: [
@@ -3998,6 +4106,24 @@ window.COURSE = {
             "Selection devices screen job APPLICANTS; a top-up for current employees isn't a selection test."
           ],
           e: "This is a redesign of compensation and benefits — the HRM activity that sets pay, incentives, and rewards. With the lira collapsed and skilled staff emigrating (brain drain), the firm uses an attendance-linked fresh-dollar top-up to improve retention and reduce voluntary turnover, which the lecture identifies as the purpose of competitive compensation."
+        },
+        {
+          q: "Two branches hire for the same stressful role. Branch A's recruiters describe only the perks; Branch B's recruiters give a candid preview of the hard parts AND the perks. Branch B's new hires quit far less. Which lecture concept BEST explains Branch B's result?",
+          o: [
+            "Branch B used a more reliable selection test, so its scores were more consistent",
+            "Branch B gave a realistic job preview (RJP); honest information about negatives as well as positives sets accurate expectations, improving fit and reducing early turnover",
+            "Branch B had higher external validity, so its job ads reached more people",
+            "Branch B simply paid more, which is the only real driver of retention"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "Reliability is about a test giving consistent scores — that is not what 'describing the hard parts honestly' means.",
+            "Right idea — that's the one.",
+            "'External validity' isn't the issue here, and this is about expectations set during recruiting, not how far an ad reaches.",
+            "Pay isn't described as different between the branches — the only difference stated is honesty about the job's realities."
+          ],
+          e: "A realistic job preview (RJP) gives candidates both the favorable AND the unfavorable information about a job. By setting accurate expectations it improves person–job fit and reduces the early turnover that occurs when new hires are surprised by realities they were never told — exactly Branch B's advantage."
         }
       ],
       cases: [
@@ -4618,6 +4744,24 @@ window.COURSE = {
             "Nothing indicates these employees are a powerful group bargaining for concessions; their issue is anxiety."
           ],
           e: "Facilitation and support is used when resisters are fearful and anxiety-ridden; it can facilitate needed adjustments, though it is expensive with no guarantee of success."
+        },
+        {
+          q: "To push a change through, one manager wants to add ever-stronger incentives and pressure (driving forces); a colleague argues it is better to remove staff fears and obstacles (restraining forces). Using Lewin's view, which approach is generally preferable and why?",
+          o: [
+            "Keep piling on driving forces — more pressure always produces faster, more durable change",
+            "Reducing the restraining forces is generally preferable, because merely increasing driving forces tends to raise tension and counter-pressure, whereas removing resistance lets change occur with less conflict",
+            "The two are identical, so it makes no difference which the manager chooses",
+            "Neither matters; Lewin's model says change depends only on refreezing"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "Cranking up pressure tends to provoke equal counter-pressure and resistance — it is not the durable route Lewin favors.",
+            "Right idea — that's the one.",
+            "Driving and restraining forces are opposites, not the same thing — increasing one differs from reducing the other.",
+            "Refreezing is the last STEP; this question is about how to unfreeze and move — driving versus restraining forces."
+          ],
+          e: "In Lewin's force-field view, change is a balance between driving forces (pushing change) and restraining forces (resisting it). Increasing driving forces tends to generate counter-pressure and tension, so reducing the restraining forces — addressing fears and removing obstacles — is generally the preferable way to reach the desired state with less conflict."
         }
       ],
       cases: [
@@ -5210,6 +5354,24 @@ window.COURSE = {
             "The glass ceiling is about barriers to women's advancement; promoting her does not fix a unit that cannot run without her."
           ],
           e: "Leaders need good followers to be effective. Developing followership — self-management, commitment to purpose, enthusiasm, competence, courage/honesty/credibility — and spreading mentoring beyond the in-group lets the vision continue without the leader's constant presence."
+        },
+        {
+          q: "Leader X motivates purely by exchanging rewards for performance and correcting deviations. Leader Y inspires followers to transcend self-interest for a shared vision and to develop their potential. During a survival-threatening transformation, which BEST reflects the lecture's view of the two?",
+          o: [
+            "Only transactional leadership (X) matters in a crisis; vision is a luxury",
+            "They are complementary — transformational leadership (Y) builds on, rather than replaces, transactional leadership, and is especially powerful for driving deep change and extra effort",
+            "They are the same style under two different names",
+            "Only transformational leadership (Y) has any real effect; transactional leadership has been shown to be useless"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "Vision isn't a luxury in a transformation — transformational leadership is precisely what drives deep change.",
+            "Right idea — that's the one.",
+            "Exchanging rewards for performance (transactional) is clearly different from inspiring people beyond self-interest (transformational).",
+            "Transactional leadership isn't useless — transformational leadership is described as building ON it, not erasing it."
+          ],
+          e: "Transactional leadership motivates through exchanges (rewards for performance, correcting deviations). Transformational leadership inspires followers to go beyond self-interest toward a shared vision and to grow. The lecture treats them as complementary: transformational leadership builds on the transactional base and produces extra effort and deeper change — exactly what a survival-threatening transformation needs."
         }
       ],
       cases: [
@@ -5755,6 +5917,24 @@ window.COURSE = {
             "Arbitrary cuts make her under-rewarded for her inputs, not over-rewarded relative to referents."
           ],
           e: "Expectancy linkage B (performance-reward) breaks when earned rewards are withheld, and arbitrary after-the-fact cuts violate procedural justice (fairness of the process). Effort-performance (A) and attractiveness (C) are intact, but the broken B-link and unfair process kill motivation."
+        },
+        {
+          q: "A company keeps raising already-generous salaries and improving an already-safe workplace, puzzled that motivation barely moves. Using Maslow's hierarchy, the BEST explanation is that…",
+          o: [
+            "Maslow predicts money motivates infinitely, so the raises should have worked — the data must be wrong",
+            "a substantially satisfied need no longer motivates; with lower-order (physiological/safety) needs already met, further gains there add little, and motivation now depends on higher-order needs",
+            "Maslow says higher-order needs must be fully satisfied before lower-order ones, so the firm worked on the wrong level",
+            "Maslow's hierarchy classifies pay as a higher-order need, so raises should always be the strongest motivator"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "Maslow's core point is the opposite — a met need loses its motivating power, so endless raises hit diminishing returns.",
+            "Right idea — that's the one.",
+            "The hierarchy runs the other way: lower-order needs are addressed before higher-order ones become dominant.",
+            "Pay maps mostly to LOWER-order needs (physiological/safety), not higher-order — so it isn't an unlimited motivator."
+          ],
+          e: "In Maslow's hierarchy a substantially satisfied need no longer drives behavior. The firm has already met lower-order (physiological and safety) needs, so additional pay and safety improvements add little motivation; to motivate further it must address the now-dominant higher-order needs — social belonging, esteem, and self-actualization."
         }
       ],
       cases: [
@@ -6410,6 +6590,24 @@ window.COURSE = {
             "Size is one factor (via loafing), but the matrix and psychological safety show alignment and candor are decisive, not size alone."
           ],
           e: "By the matrix, high cohesion with LOW alignment DECREASES productivity, and cohesion can suppress dissent (groupthink). Performance needs cohesion aimed at organizational goals PLUS psychological safety to keep candor alive, not warmth alone."
+        },
+        {
+          q: "As a project team grows from 4 to 12 members, total output rises but output PER PERSON falls and several members quietly coast. Which concept BEST names this, and which design response does the lecture support?",
+          o: [
+            "Groupthink — and the fix is to make the team larger still",
+            "Social loafing — the tendency to exert less effort in a group than alone; making individual contributions identifiable and accountable counteracts it",
+            "Group cohesiveness — and the fix is to remove all individual accountability",
+            "Storming — and the fix is to skip directly to the performing stage"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "Groupthink is about suppressed disagreement and bad consensus, not members coasting as the group grows.",
+            "Right idea — that's the one.",
+            "Cohesiveness is mutual attraction and commitment; here effort per person is FALLING — and removing accountability would worsen the coasting, not fix it.",
+            "Storming is the conflict stage of development; it doesn't describe effort dropping as size rises, and stages can't simply be skipped on command."
+          ],
+          e: "Social loafing is the tendency for individuals to expend less effort working in a group than alone, because each person's contribution becomes harder to see as the group grows. The lecture's remedy is to make each member's contribution identifiable and to hold members individually accountable, which restores effort."
         }
       ],
       cases: [
@@ -6927,6 +7125,24 @@ window.COURSE = {
             "The problem is too LITTLE upward flow, not too much downward flow; cutting manager-to-staff talk worsens it."
           ],
           e: "Late warnings reflect starved upward communication compounded by filtering (staff slanting reports favorably). The lecture's remedies, using feedback and making honest reporting safe, restore the upward flow management needs."
+        },
+        {
+          q: "In a steep hierarchy, by the time bad news reaches top management it has been softened at each level until executives hear only a reassuring version. Which communication barrier is this, and which remedy BEST fits the lecture?",
+          o: [
+            "Information overload — the fix is to send executives even more reports",
+            "Filtering — the deliberate manipulation of information so the receiver sees it more favorably; flatter channels, multiple upward feedback paths, and a climate where candor is safe reduce it",
+            "Jargon — the fix is a company dictionary of technical terms",
+            "Nonverbal mismatch — the fix is more video calls"
+          ],
+          a: 1,
+          tier: "hard",
+          h: [
+            "Overload is too MUCH information at once; here the problem is that bad news is being trimmed away, not flooding in.",
+            "Right idea — that's the one.",
+            "Jargon is confusing terminology; the issue here is that the message is being sweetened as it rises, not that the words are technical.",
+            "The distortion isn't about body language — it's that each level edits the content to look better as it moves upward."
+          ],
+          e: "Filtering is the deliberate manipulation of information to make it appear more favorable to the receiver, and it worsens as the number of vertical levels grows. The remedy is to shorten the chain (flatter structure), open multiple upward feedback channels, and build a climate where delivering bad news is safe — so the unfiltered message reaches the top."
         }
       ],
       cases: [
